@@ -1,0 +1,82 @@
+﻿@model IEnumerable<AdventureWorksMilestone2.Models.Product>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h3>Product Details</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductNumber)
+            </td>
+            @if (item.Color == null)        // Is there no given color?
+            {
+                <td>
+                    <p>N/A</p>
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+            } 
+            <td>
+                $@Html.DisplayFor(modelItem => item.ListPrice)
+            </td>
+            @if (item.Size == null)         // Is there no given size?
+            {
+                <td>
+                    <p>N/A</p>
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+            } 
+            @if (item.Weight == null)       // Is there no given weight?
+            {
+                <td>
+                    <p>N/A</p>
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+            } 
+        </tr>
+    }
+
+</table>

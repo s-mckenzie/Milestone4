@@ -1,0 +1,15 @@
+﻿@model IEnumerable<AdventureWorksMilestone2.Models.vProductAndDescription2>
+
+@{
+    ViewBag.Title = "Road";
+}
+
+<h3>Road</h3>
+
+@foreach (var item in Model)
+{
+    @Html.ActionLink(item.ProductModel, "Details", new { id = item.ProductModelID })
+    <br /><br />
+    @Html.DisplayFor(modelItem => item.Description)
+    <br /><br /><br />
+}

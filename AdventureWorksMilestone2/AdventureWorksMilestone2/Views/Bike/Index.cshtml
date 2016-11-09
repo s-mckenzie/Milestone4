@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AdventureWorksMilestone2.Models.ProductCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <h3>Browse our selection</h3>
+    <div>
+        @foreach (var item in Model)
+        {
+            string name = item.Name.Split(' ')[0];       // Get the first part of the item name
+            <p>@Html.ActionLink(item.Name, name) </p>
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<AdventureWorksMilestone2.Models.ProductCategory>
+
+@{
+    ViewBag.Title = "Gears";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <h3>Browse our selection of cycling accessories</h3>
+    <div>
+        @foreach (var item in Model)
+        {
+            <p>@Html.ActionLink(item.Name, item.Name) </p>
+        }
+    </div>
+</body>
+</html>

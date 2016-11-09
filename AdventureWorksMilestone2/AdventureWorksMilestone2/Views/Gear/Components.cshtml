@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AdventureWorksMilestone2.Models.ProductCategory>
+
+@{
+    ViewBag.Title = "Components";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <h3>Components</h3>
+    <table class="table">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Name, "Details", new { id = item.ProductCategoryID })
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
