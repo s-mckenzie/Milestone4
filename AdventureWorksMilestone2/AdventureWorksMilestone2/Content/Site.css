@@ -1,10 +1,4 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    /*background: #E1F5FE; /* Standard syntax */
-    background:#ffffff;
-}
-
+﻿
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -43,9 +37,6 @@ textarea {
     border-radius:5px;
 }
 
-.navbar-header img{
-    height:80px;
-}
 
 th {
     background-color: #4FC3F7;
@@ -68,8 +59,6 @@ tr:nth-child(even){
     
 }
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
     /*background: #E1F5FE; /* Standard syntax */
     background:#ffffff;
 }
