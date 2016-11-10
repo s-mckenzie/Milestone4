@@ -1,7 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background: #E1F5FE; /* Standard syntax */
+    /*background: #E1F5FE; /* Standard syntax */
+    background:#ffffff;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -38,6 +39,8 @@ textarea {
 
 .jumbotron img{
     width: 100%;
+    border:solid 1px;
+    border-radius:5px;
 }
 
 .navbar-header img{
@@ -52,19 +55,25 @@ tr:nth-child(even){
     background-color: #B3E5FC;
 }
 
-.col-md-4{
-    text-align: center;
-}
+
 
 #leftinfo{
     margin:auto;
     text-align:center;
-    padding:auto;
 }
 
 #rightinfo{
     margin:auto;
     text-align:center;
     
-    padding:auto;
+}
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    /*background: #E1F5FE; /* Standard syntax */
+    background:#ffffff;
+}
+.jumbotron{
+    margin:auto;
+    border:solid 1px;
 }

@@ -13,60 +13,74 @@
 <head>
 
 </head>
+<div class="jumbotron" >
+        <h2>@ViewBag.Title.</h2>
+    
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+    {
+        <h4>Send your comments.</h4>
+        <hr />
 
-<h2>@ViewBag.Title.</h2>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FromFirstName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.FromFirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.FromFirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FromLastName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.FromLastName, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.FromLastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.FromEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+                <div class="col-md-12">
+                    @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group ">
+                
+                <label class="control-label col-md-2" for="g-recaptcha"></label>
+                <div class="col-md-12">
+                    @Html.Recaptcha()
+                    @Html.ValidationMessage("g-recaptcha")
+                    @if (ViewBag.cError != null)
+                {
+                        <span class="field-validation-error text-danger">@ViewBag.cError</span>
+                    }
+                </div>
+            </div>
+        </div>
 
-@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
-{
-    <h4>Send your comments.</h4>
-    <hr />
-    <div class="form-group">
-        @Html.LabelFor(m => m.FromFirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FromFirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FromFirstName, "", new { @class = "text-danger" })
+        <br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.FromLastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FromLastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FromLastName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FromEmail, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2" for="g-recaptcha"></label>
-        <div class="col-md-10">
-            @Html.Recaptcha()
-            @Html.ValidationMessage("g-recaptcha")
-            @if (ViewBag.cError != null)
-            {
-                <span class="field-validation-error text-danger">@ViewBag.cError</span>
-            }         
-        </div>
-    </div>
+    }
 
-    <br />
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Submit" class="btn btn-default" />
-        </div>
-    </div>
-}
-
+</div>

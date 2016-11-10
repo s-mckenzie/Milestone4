@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title Adventure Works 2012</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -18,17 +18,17 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="~/Home/Index"><img src="~/Content/Images/awc_logo.png" alt="Store_Logo"></a>
+                <div class="navbar-collapse collapse in">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Bikes", "Index", "Bike")</li>
+                        <li>@Html.ActionLink("Gear", "Index", "Gear")</li>
+                        <li>@Html.ActionLink("Bike Manager", "Index", "BikeManager")</li>
+                        @Html.Partial("_LoginPartial")
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Bikes", "Index", "Bike")</li>
-                    <li>@Html.ActionLink("Gear", "Index", "Gear")</li>
-                    <li>@Html.ActionLink("Bike Manager", "Index", "BikeManager")</li>
-                @Html.Partial("_LoginPartial")
-                </ul>
-                
-            </div>
+            
         </div>
     </div>
     <div class="container body-content">
