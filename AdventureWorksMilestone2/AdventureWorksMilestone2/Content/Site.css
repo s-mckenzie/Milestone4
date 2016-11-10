@@ -57,11 +57,14 @@ tr:nth-child(even){
 }
 
 #leftinfo{
-    float: left;
-    margin-left: 100px;
+    margin:auto;
+    text-align:center;
+    padding:auto;
 }
 
 #rightinfo{
-    float: right;
-    margin-right: 100px;
+    margin:auto;
+    text-align:center;
+    
+    padding:auto;
 }
