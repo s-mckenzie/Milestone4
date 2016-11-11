@@ -16,6 +16,7 @@ namespace AdventureWorksMilestone2.Controllers
         private AdventureWorks2012Entities db = new AdventureWorks2012Entities();
 
         // GET: BikeManager
+        [Authorize(Roles = "Manager")]
         public ActionResult Index()
         {
             var bikes = from x in db.Products where x.ProductCategoryID >= 5 && x.ProductCategoryID <= 7 select x;
@@ -23,6 +24,7 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
         // GET: BikeManager/Details/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,22 +39,24 @@ namespace AdventureWorksMilestone2.Controllers
             return View(product);
         }
 
-        
 
         // Used to search for unique product names
+        [Authorize(Roles = "Manager")]
         public JsonResult CheckName(string name)
         {
             var names = from x in db.Products where x.Name == name select x;
             return ValidateItems(names, name);
         }
 
-        // Used to search for unique product names
+        // Used to search for unique product numbers
+        [Authorize(Roles = "Manager")]
         public JsonResult CheckNumber(string productnumber)
         {
             var nums = from x in db.Products where x.ProductNumber == productnumber select x;
             return ValidateItems(nums, productnumber);
         }
 
+        [Authorize(Roles = "Manager")]
         private JsonResult ValidateItems(IQueryable<Product> items, string item)
         {
             // Unique product name/number
@@ -66,7 +70,7 @@ namespace AdventureWorksMilestone2.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Manager")]
         public ActionResult GetBikeModel(int? id)
         {
             var model = (from x in db.vProductAndDescription2 where x.ProductCategoryID == id select new SelectListItem { Value = x.ProductModelID.ToString(), Text = x.ProductModel }).Distinct();
@@ -74,6 +78,7 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
         // GET: BikeManager/Create
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             var category = (from x in db.ProductCategories where x.ParentProductCategoryID == 1 select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
@@ -85,6 +90,7 @@ namespace AdventureWorksMilestone2.Controllers
         // POST: BikeManager/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product)
@@ -109,6 +115,7 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
         // GET: BikeManager/Edit/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -128,6 +135,7 @@ namespace AdventureWorksMilestone2.Controllers
         // POST: BikeManager/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product)
@@ -143,6 +151,7 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
         // GET: BikeManager/Delete/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -158,6 +167,7 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
         // POST: BikeManager/Delete/5
+        [Authorize(Roles = "Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
