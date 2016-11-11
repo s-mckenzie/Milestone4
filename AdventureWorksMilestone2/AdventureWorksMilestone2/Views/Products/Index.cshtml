@@ -11,6 +11,8 @@
 <hr />
 
 @foreach (var item in Model) {
+    string url = "";
+    string type = "Bike/";
     double weight = -1;
     if (item.Weight != null) {
         //weight = (double)item.Weight * gramToPounds;
@@ -19,9 +21,16 @@
     //string w = weight.ToString("F2") + " lbs";
     string w = weight.ToString("F2") + " kg";
 
+    if (item.ProductCategoryID >= 8)
+    {
+        type = "Gear/";
+    }
+
+    url += type + "Details/" + item.ProductCategoryID;
+
     <div id="product" class="col-md-4">
-        <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-        <img src="data:image;base64,@System.Convert.ToBase64String(item.ThumbNailPhoto)" height="100" />
+        <a href="~/@url"><h3>@Html.DisplayFor(modelItem => item.Name)</h3></a>
+        <a href="~/Products/Details?id=@item.ProductID"><img src="data:image;base64,@System.Convert.ToBase64String(item.ThumbNailPhoto)" height="100" /></a>
         <br />
         <br />
         <h4><label><strong>List Price:</strong></label>     $@Html.DisplayFor(modelItem => item.ListPrice)          <br /></h4>
@@ -30,7 +39,8 @@
 
         @if (item.Color != null || item.Size != null || weight != -1)
         {
-            <details class="col-lg-12">
+            <details value="Specs" class="col-lg-12">
+                <summary>Specifications</summary>
                 <p>
                     @if (item.Color != null)
                     {
@@ -49,6 +59,7 @@
         }
         else
         {
+            <br />
             <h6>No Details Found :(</h6>
         }
     </div>

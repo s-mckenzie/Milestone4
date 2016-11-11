@@ -17,6 +17,14 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+        
+        <dt>
+            Category
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCategory.Name)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.ProductNumber)
@@ -24,6 +32,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.ProductNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListPrice)
+        </dt>
+
+        <dd>
+            $@Html.DisplayFor(model => model.ListPrice)
         </dd>
 
         <dt>
@@ -35,22 +51,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StandardCost)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StandardCost)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ListPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ListPrice)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Size)
         </dt>
 
@@ -58,81 +58,25 @@
             @Html.DisplayFor(model => model.Size)
         </dd>
 
+        @if (Model.Weight != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Weight)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Weight) grams
+            </dd>
+        }
         <dt>
-            @Html.DisplayNameFor(model => model.Weight)
+            @Html.DisplayNameFor(model => model.ThumbNailPhoto)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Weight)
+            <img src="data:image;base64,@System.Convert.ToBase64String(Model.ThumbNailPhoto)" />
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductModelID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductModelID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SellStartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SellStartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SellEndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SellEndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiscontinuedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiscontinuedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ThumbnailPhotoFileName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ThumbnailPhotoFileName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.rowguid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.rowguid)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCategory.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductCategory.Name)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

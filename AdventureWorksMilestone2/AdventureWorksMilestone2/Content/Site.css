@@ -72,7 +72,7 @@ hr {
 
 #product {
     height: 24.5em;
-    border: dotted 2px black;
+    border: dashed 2px black;
     overflow-y: visible;
 }
 
@@ -84,6 +84,7 @@ details {
 }
 
 details p {
+    padding-top: 5px;
     font-size: 11pt;
     color: black;
 }
