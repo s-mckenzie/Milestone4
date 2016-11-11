@@ -65,3 +65,30 @@ tr:nth-child(even){
     float: right;
     margin-right: 100px;
 }
+
+hr {
+    border-color: black;
+}
+
+#product {
+    height: 24.5em;
+    border: dotted 2px black;
+    overflow-y: visible;
+}
+
+details {
+    font-size: 14pt;
+    color: #01579B;
+    z-index: 10;
+    background-color: #B3E5FC;
+}
+
+details p {
+    font-size: 11pt;
+    color: black;
+}
+
+h3 {
+    color: #0D47A1;
+    text-decoration: underline;
+}
