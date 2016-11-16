@@ -183,6 +183,7 @@
     <Compile Include="Controllers\GearController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -317,6 +318,8 @@
     <Content Include="Views\BikeManager\Edit.cshtml" />
     <Content Include="Views\BikeManager\Index.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

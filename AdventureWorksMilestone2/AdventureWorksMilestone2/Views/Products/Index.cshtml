@@ -1,0 +1,113 @@
+﻿@model IEnumerable<AdventureWorksMilestone2.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+
+    double gramToKilo   = 0.001;
+    double gramToPounds = 0.00220462;
+    int count = 0;
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var searchString;
+            $('#searchBar').keyup(search);
+
+            function search() {
+                searchString = $('#searchBar').val();
+
+                arr = document.getElementsByClassName("prod");
+
+                for (var i = 0; i < arr.length; i++) {
+                    obj = document.getElementById(arr[i].id);
+                    title = obj.firstChild.nextSibling.firstChild;
+                    if (title.textContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
+                        title.style.backgroundColor = "#18FFFF";
+                        obj.removeAttribute("style");
+                    }
+                    else {
+                        title.style.backgroundColor = "";
+                        obj.style.display = "none";
+                    }
+                }
+
+                if (searchString == "") {
+                    for (var i = 0; i < arr.length; i++) {
+                        obj = document.getElementById(arr[i].id);
+                        title = obj.firstChild.nextSibling.firstChild;
+                        title.style.backgroundColor = "";
+                        obj.removeAttribute("style");
+                    }
+                }
+            }
+
+            search();
+        });
+    </script>
+</head>
+
+<h1>Products</h1> <input type="text" id="searchBar" placeholder="Search Products"/>
+<hr />
+<div id="product-container">
+    @foreach (var item in Model) {
+        count++;
+        string url = "";
+        double weight = -1;
+        if (item.Weight != null) {
+            //weight = (double)item.Weight * gramToPounds;
+            weight = (double)item.Weight * gramToKilo;
+        }
+        //string w = weight.ToString("F2") + " lbs";
+        string w = weight.ToString("F2") + " kg";
+
+        if (item.ProductCategoryID >= 8)
+        {
+            url += "Gear/Details/" + item.ProductCategoryID;
+        }
+        else
+        {
+            url += "Bike/Details/" + item.ProductModelID;
+        }
+
+        <div id=@count class="col-md-4 prod">
+            <a href="~/@url"><h3>@Html.DisplayFor(modelItem => item.Name)</h3></a>
+            <a href="~/Products/Details?id=@item.ProductID"><img src="data:image;base64,@System.Convert.ToBase64String(item.ThumbNailPhoto)" height="100" /></a>
+            <br />
+            <br />
+            <h4><label><strong>List Price:</strong></label>     $@Html.DisplayFor(modelItem => item.ListPrice)          <br /></h4>
+            <h4><label><strong>Category:</strong></label>       @Html.DisplayFor(modelItem => item.ProductCategory.Name)<br /></h4>
+            <h4><label><strong>Product Number:</strong></label> @Html.DisplayFor(modelItem => item.ProductNumber)       <br /></h4>
+
+            @if (item.Color != null || item.Size != null || weight != -1)
+            {
+                <details value="Specs" class="col-lg-12">
+                    <summary>Specifications</summary>
+                    <p>
+                        @if (item.Color != null)
+                        {
+                            <label><strong>Color:</strong></label>  @Html.DisplayFor(modelItem => item.Color)   <br />
+                        }
+                        @if (item.Size != null)
+                        {
+                            <label><strong>Size:</strong></label>   @Html.DisplayFor(modelItem => item.Size)    <br />
+                        }
+                        @if (weight != -1)
+                        {
+                            <label><strong>Weight:</strong></label> @Html.DisplayFor(modelItem => w);           <br />
+                        }
+                    </p>
+                </details>
+            }
+            else
+            {
+                <br />
+                <h6>No Details Found :(</h6>
+            }
+        </div>
+    }
+</div>
+
+<div id="sideBar">
+
+</div>
