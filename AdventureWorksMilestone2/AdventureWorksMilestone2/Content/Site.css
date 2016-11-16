@@ -70,9 +70,9 @@ hr {
     border-color: black;
 }
 
-#product {
+.prod {
     height: 24.5em;
-    border: dashed 2px black;
+    border: solid 2px black;
     overflow-y: visible;
 }
 
@@ -81,6 +81,10 @@ details {
     color: #01579B;
     z-index: 10;
     background-color: #B3E5FC;
+}
+
+summary:hover {
+    cursor: pointer;
 }
 
 details p {
@@ -92,4 +96,29 @@ details p {
 h3 {
     color: #0D47A1;
     text-decoration: underline;
+}
+
+#searchBar {
+    position: relative;
+    border: 2px solid #0277BD;
+    padding: 3px 15px;
+    font-size: 1.3em;
+    background: #81D4FA;
+    width: 300px;
+    border-radius: 20px;
+}
+
+::-webkit-input-placeholder { /* Chrome */
+  color: #48a3db;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #48a3db;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #48a3db;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #48a3db;
+  opacity: 1;
 }
