@@ -68,6 +68,7 @@ tr:nth-child(even){
 
 hr {
     border-color: black;
+    display: inherit;
 }
 
 .prod {

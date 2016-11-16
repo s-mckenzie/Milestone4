@@ -11,8 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            var searchString
-            $('#searchBar').keyup(function (e) {
+            var searchString;
+            $('#searchBar').keyup(search);
+
+            function search() {
                 searchString = $('#searchBar').val();
 
                 arr = document.getElementsByClassName("prod");
@@ -21,14 +23,26 @@
                     obj = document.getElementById(arr[i].id);
                     title = obj.firstChild.nextSibling.firstChild;
                     if (title.textContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
-                        title.style.backgroundColor = "yellow";
+                        title.style.backgroundColor = "#18FFFF";
+                        obj.removeAttribute("style");
                     }
                     else {
                         title.style.backgroundColor = "";
+                        obj.style.display = "none";
                     }
-                    console.log(obj);
                 }
-            });
+
+                if (searchString == "") {
+                    for (var i = 0; i < arr.length; i++) {
+                        obj = document.getElementById(arr[i].id);
+                        title = obj.firstChild.nextSibling.firstChild;
+                        title.style.backgroundColor = "";
+                        obj.removeAttribute("style");
+                    }
+                }
+            }
+
+            search();
         });
     </script>
 </head>
@@ -39,7 +53,6 @@
     @foreach (var item in Model) {
         count++;
         string url = "";
-        string type = "Bike/";
         double weight = -1;
         if (item.Weight != null) {
             //weight = (double)item.Weight * gramToPounds;
@@ -50,10 +63,12 @@
 
         if (item.ProductCategoryID >= 8)
         {
-            type = "Gear/";
+            url += "Gear/Details/" + item.ProductCategoryID;
         }
-
-        url += type + "Details/" + item.ProductCategoryID;
+        else
+        {
+            url += "Bike/Details/" + item.ProductModelID;
+        }
 
         <div id=@count class="col-md-4 prod">
             <a href="~/@url"><h3>@Html.DisplayFor(modelItem => item.Name)</h3></a>
