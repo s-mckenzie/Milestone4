@@ -66,3 +66,8 @@ body {
     margin:auto;
     border:solid 1px;
 }
+
+.star{
+    height: 24px;
+    width: 12px;
+}

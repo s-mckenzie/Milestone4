@@ -18,9 +18,9 @@ namespace AdventureWorksMilestone2.Models
         public int id { get; set; }
         public int ProductID { get; set; }
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "* Required")]
         public decimal Rating { get; set; }
-        [Required]
+        [Required(ErrorMessage = "* Required")]
         public string Review1 { get; set; }
     
         public virtual Product Product { get; set; }

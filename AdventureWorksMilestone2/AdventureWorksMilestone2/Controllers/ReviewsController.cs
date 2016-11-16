@@ -39,7 +39,9 @@ namespace AdventureWorksMilestone2.Controllers
         // GET: Reviews/Create
         public ActionResult Create(int? ProductId)
         {
-            ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name");
+            ViewBag.ProductID = ProductId;
+            ViewBag.Rating = "";
+            ViewBag.Message = "";
             return View();
         }
 
@@ -57,7 +59,9 @@ namespace AdventureWorksMilestone2.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name", review.ProductID);
+            ViewBag.ProductID = review.ProductID;
+            ViewBag.Rating = review.Rating;
+            ViewBag.Message = review.Review1;
             return View(review);
         }
 

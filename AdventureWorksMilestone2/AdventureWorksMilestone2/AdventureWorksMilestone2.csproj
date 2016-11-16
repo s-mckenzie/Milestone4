@@ -266,6 +266,10 @@
     <Content Include="Content\Images\awc_logo.png" />
     <Content Include="Content\Images\BikeImage.jpg" />
     <Content Include="Content\Images\GearImage.jpg" />
+    <Content Include="Content\Images\star-full-L.png" />
+    <Content Include="Content\Images\star-full-R.png" />
+    <Content Include="Content\Images\star-not-L.png" />
+    <Content Include="Content\Images\star-not-R.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -302,6 +306,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Content\Images\star-full.ico" />
+    <Content Include="Content\Images\star-full.png" />
+    <Content Include="Content\Images\star-not.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
