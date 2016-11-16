@@ -12,12 +12,12 @@ namespace AdventureWorksMilestone2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class vProductAndDescription2
+    public partial class vProductAndDescription
     {
-        public Nullable<int> ProductModelID { get; set; }
+        public int ProductID { get; set; }
+        public string Name { get; set; }
         public string ProductModel { get; set; }
         public string Culture { get; set; }
         public string Description { get; set; }
-        public Nullable<int> ProductCategoryID { get; set; }
     }
 }

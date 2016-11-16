@@ -12,25 +12,31 @@ namespace AdventureWorksMilestone2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductCategory
+    public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductCategory()
+        public Address()
         {
-            this.Products = new HashSet<Product>();
-            this.ProductCategory1 = new HashSet<ProductCategory>();
+            this.CustomerAddresses = new HashSet<CustomerAddress>();
+            this.SalesOrderHeaders = new HashSet<SalesOrderHeader>();
+            this.SalesOrderHeaders1 = new HashSet<SalesOrderHeader>();
         }
     
-        public int ProductCategoryID { get; set; }
-        public Nullable<int> ParentProductCategoryID { get; set; }
-        public string Name { get; set; }
+        public int AddressID { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string City { get; set; }
+        public string StateProvince { get; set; }
+        public string CountryRegion { get; set; }
+        public string PostalCode { get; set; }
         public System.Guid rowguid { get; set; }
         public System.DateTime ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductCategory> ProductCategory1 { get; set; }
-        public virtual ProductCategory ProductCategory2 { get; set; }
+        public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SalesOrderHeader> SalesOrderHeaders1 { get; set; }
     }
 }
