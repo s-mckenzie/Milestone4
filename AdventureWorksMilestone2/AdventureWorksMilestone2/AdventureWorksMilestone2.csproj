@@ -184,6 +184,7 @@
     <Compile Include="Controllers\GearManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -318,11 +319,16 @@
     <Content Include="Views\BikeManager\Edit.cshtml" />
     <Content Include="Views\BikeManager\Index.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\GearManager\Create.cshtml" />
     <Content Include="Views\GearManager\Delete.cshtml" />
     <Content Include="Views\GearManager\Details.cshtml" />
     <Content Include="Views\GearManager\Edit.cshtml" />
     <Content Include="Views\GearManager\Index.cshtml" />
+=======
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+>>>>>>> refs/remotes/origin/master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
