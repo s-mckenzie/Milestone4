@@ -9,6 +9,7 @@
     @if (User.IsInRole("Manager"))
     {
         <li>@Html.ActionLink("Bike Manager", "Index", "BikeManager")</li>
+        <li>@Html.ActionLink("Gear Manager", "Index", "GearManager")</li>
     }
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
