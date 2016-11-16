@@ -11,18 +11,11 @@ namespace AdventureWorksMilestone2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Review
-    {
-        public int id { get; set; }
-        public int ProductID { get; set; }
-        public string Name { get; set; }
-        [Required]
-        public decimal Rating { get; set; }
-        [Required]
-        public string Review1 { get; set; }
     
-        public virtual Product Product { get; set; }
+    public partial class vGetAllCategory
+    {
+        public string ParentProductCategoryName { get; set; }
+        public string ProductCategoryName { get; set; }
+        public Nullable<int> ProductCategoryID { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace AdventureWorksMilestone2.Models
         public Product()
         {
             this.Reviews = new HashSet<Review>();
+            this.SalesOrderDetails = new HashSet<SalesOrderDetail>();
         }
     
         public int ProductID { get; set; }
@@ -40,5 +41,9 @@ namespace AdventureWorksMilestone2.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
+        public virtual ProductModel ProductModel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SalesOrderDetail> SalesOrderDetails { get; set; }
     }
 }

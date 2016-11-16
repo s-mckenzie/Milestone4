@@ -183,36 +183,73 @@
     <Compile Include="Controllers\GearController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdventureModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdventureModel.Context.tt</DependentUpon>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventureModel.cs">
+    <Compile Include="Models\adventure.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AdventureModel.tt</DependentUpon>
+      <DependentUpon>adventure.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventureModel.Designer.cs">
+    <Compile Include="Models\adventure.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AdventureModel.edmx</DependentUpon>
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\adventure.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>adventure.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerAddress.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs">
-      <DependentUpon>AdventureModel.tt</DependentUpon>
+      <DependentUpon>adventure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductCategory.cs">
-      <DependentUpon>AdventureModel.tt</DependentUpon>
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductDescription.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductModel.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductModelProductDescription.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Review.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesOrderDetail.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesOrderHeader.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vGetAllCategory.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vProductAndDescription.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vProductAndDescription2.cs">
-      <DependentUpon>AdventureModel.tt</DependentUpon>
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vProductModelCatalogDescription.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -233,25 +270,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\AdventureModel.Context.tt">
+    <Content Include="Models\adventure.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AdventureModel.edmx</DependentUpon>
-      <LastGenOutput>AdventureModel.Context.cs</LastGenOutput>
+      <DependentUpon>adventure.edmx</DependentUpon>
+      <LastGenOutput>adventure.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\AdventureModel.tt">
+    <Content Include="Models\adventure.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AdventureModel.edmx</DependentUpon>
-      <LastGenOutput>AdventureModel.cs</LastGenOutput>
+      <DependentUpon>adventure.edmx</DependentUpon>
+      <LastGenOutput>adventure.cs</LastGenOutput>
     </Content>
     <Content Include="RecaptchaNet.Readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\AdventureModel.edmx">
+    <EntityDeploy Include="Models\adventure.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AdventureModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>adventure.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\AdventureModel.edmx.diagram">
-      <DependentUpon>AdventureModel.edmx</DependentUpon>
+    <Content Include="Models\adventure.edmx.diagram">
+      <DependentUpon>adventure.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -317,6 +354,11 @@
     <Content Include="Views\BikeManager\Edit.cshtml" />
     <Content Include="Views\BikeManager\Index.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
