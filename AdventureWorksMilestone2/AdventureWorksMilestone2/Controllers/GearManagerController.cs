@@ -140,7 +140,40 @@ namespace AdventureWorksMilestone2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                product.ModifiedDate = System.DateTime.Now;
+                product.rowguid = Guid.NewGuid();
+
+                //Request["fileUpload"];
+
+                // No new image was chosen
+                if (product.ThumbNailPhoto == null)
+                {
+                    // Since the photos always turn null on edit, we need to fetch the product's details 
+                    var item = db.Products.SingleOrDefault(i => i.ProductID == product.ProductID);
+
+                    // In case thumbnail photo was already null
+                    if (item.ThumbNailPhoto == null)
+                    {
+                        // Get the byte array for no image
+                        var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
+                        product.ThumbNailPhoto = image.ThumbNailPhoto;
+                        product.ThumbnailPhotoFileName = "no_image_available_small.gif";
+                    }
+                    else
+                    {
+                        product.ThumbNailPhoto = item.ThumbNailPhoto;
+                        product.ThumbnailPhotoFileName = item.ThumbnailPhotoFileName;
+                    }
+
+                    // We have to set the new values this way instead or else Visual Studios will get confused with "item" and "product" sharing the same ID
+                    // It's weird but this works
+                    db.Entry(item).CurrentValues.SetValues(product);
+                }
+                else
+                {
+                    db.Entry(product).State = EntityState.Modified;
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
