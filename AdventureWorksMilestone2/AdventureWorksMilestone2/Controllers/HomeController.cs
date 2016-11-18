@@ -13,14 +13,19 @@ namespace AdventureWorksMilestone2.Controllers
 {
     public class HomeController : Controller
     {
+
+        private AdventureWorks2012Entities db = new AdventureWorks2012Entities();
+
+
         public ActionResult Index()
         {
+            ViewBag.images = (from x in db.Products select x.ThumbNailPhoto).Distinct().ToList();
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Images = "Your contact page.";
 
             return View();
         }

@@ -7,6 +7,7 @@
 
         
         <div class="row">
+            <!--<img src="data:image;base64,System.Convert.ToBase64String(item.ThumbNailPhoto)" height="100" />-->
             <img src="~/Content/Images/BikeImage.jpg" alt="Image1">
             <div class="col-md-pull-6" id="leftinfo">
                 <h2>Browse our selection of bikes</h2>
@@ -18,4 +19,21 @@
             </div>
         </div>
     </div>
+@foreach (var item in ViewBag.images)
+{
+    @Html.DisplayFor(modelItem => item);
 
+}
+<script>
+    
+
+    $(document).ready(function () {
+        setInterval(slide, 3000);
+        slide();
+    });
+    function slide() {
+
+    }
+
+
+</script>
