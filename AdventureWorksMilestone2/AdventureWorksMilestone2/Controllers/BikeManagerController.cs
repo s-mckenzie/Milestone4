@@ -128,8 +128,9 @@ namespace AdventureWorksMilestone2.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProductCategoryID = new SelectList(db.ProductCategories, "ProductCategoryID", "Name", product.ProductCategoryID);
 
+            var category = (from x in db.ProductCategories where x.ParentProductCategoryID == 1 select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
+            ViewBag.ProductCategory = category;
             return View(product);
         }
 
@@ -180,7 +181,9 @@ namespace AdventureWorksMilestone2.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProductCategoryID = new SelectList(db.ProductCategories, "ProductCategoryID", "Name", product.ProductCategoryID);
+
+            var category = (from x in db.ProductCategories where x.ParentProductCategoryID == 1 select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
+            ViewBag.ProductCategory = category;
             return View(product);
         }
 
