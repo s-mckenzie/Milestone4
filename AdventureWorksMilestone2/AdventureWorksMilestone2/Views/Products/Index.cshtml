@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 
-    double gramToKilo   = 0.001;
+    //double gramToKilo   = 0.001;
     double gramToPounds = 0.00220462;
     int count = 0;
 }
@@ -24,13 +24,15 @@
                     title = obj.children[0].firstChild;
                     id = obj.children[6];
                     idString = id.textContent.substring(15, id.textContent.length);
+                    a = false;
+                    b = false
                     if (title.textContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
                         title.style.backgroundColor = "#18FFFF";
                         obj.removeAttribute("style");
                     }
                     else {
                         title.style.backgroundColor = "";
-                        obj.style.display = "none";
+                        a = true;
                     }
                     if (idString.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
                         id.style.backgroundColor = "#18FFFF";
@@ -38,9 +40,11 @@
                     }
                     else {
                         id.style.backgroundColor = "";
+                        b = true;
+                    }
+                    if (a && b) {
                         obj.style.display = "none";
                     }
-
                 }
 
                 if (searchString == "") {
@@ -61,6 +65,9 @@
 </head>
 
 <h1>Products</h1> <input type="text" id="searchBar" placeholder="Search Products"/>
+<div id="filters">
+
+</div>
 <hr />
 <div>
     @foreach (var item in Model) {
@@ -68,11 +75,11 @@
         string url = "";
         double weight = -1;
         if (item.Weight != null) {
-            //weight = (double)item.Weight * gramToPounds;
-            weight = (double)item.Weight * gramToKilo;
+            weight = (double)item.Weight * gramToPounds;
+            //weight = (double)item.Weight * gramToKilo;
         }
-        //string w = weight.ToString("F2") + " lbs";
-        string w = weight.ToString("F2") + " kg";
+        string w = weight.ToString("F2") + " lbs";
+        //string w = weight.ToString("F2") + " kg";
 
         if (item.ProductCategoryID >= 8)
         {
@@ -120,7 +127,3 @@
         </div>
     }
 </div>
-
-<!--<div id="sideBar">
-
-</div>-->

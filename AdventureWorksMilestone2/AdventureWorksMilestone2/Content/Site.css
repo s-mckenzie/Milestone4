@@ -177,18 +177,6 @@ h3 {
   opacity: 1;
 }
 
-#sideBar {
-    height: 800px;
-    width: 250px;
-    position: fixed;
-    top: 14%;
-    left: 5%;
-    background-color: #03A9F4;
-    border: 2px solid #0277BD;
-    border-radius: 10px;
-    box-shadow: 1px 1px 2px #01579B, 0 0 15px #01579B, 0 0 5px #01579B;
-}
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -255,4 +243,8 @@ body {
 .jumbotron{
     margin:auto;
     border:solid 1px;
+}
+
+#filters {
+
 }
