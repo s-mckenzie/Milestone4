@@ -158,7 +158,7 @@ h3 {
     padding: 3px 15px;
     font-size: 1.3em;
     background: #81D4FA;
-    width: 300px;
+    width: 30%;
     border-radius: 20px;
 }
 
@@ -215,7 +215,6 @@ textarea {
     border-radius:5px;
 }
 
-
 th {
     background-color: #4FC3F7;
 }
@@ -223,8 +222,6 @@ th {
 tr:nth-child(even){
     background-color: #B3E5FC;
 }
-
-
 
 #leftinfo{
     margin:auto;
@@ -246,5 +243,26 @@ body {
 }
 
 #filters {
+    background-color: dodgerblue;
+    height: 50px;
+    width: 65%;
+    float: right;
+    border-radius: 5px;
+    position: relative;
+    bottom: 7px;
+}
 
+.filter label {
+    color: white;
+    position:relative;
+    bottom: 2px;
+}
+
+input[type="checkbox"] {
+    margin-top: 18px;
+    margin-left: 7px;
+}
+
+input[type="checkbox"]:hover {
+    cursor: pointer;
 }
