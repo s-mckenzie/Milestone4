@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AdventureWorksMilestone2.Models;
+using System.Data.Entity.Validation;
 
 namespace AdventureWorksMilestone2.Controllers
 {
@@ -17,6 +18,7 @@ namespace AdventureWorksMilestone2.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private AdventureWorks2012Entities db = new AdventureWorks2012Entities();
 
         public AccountController()
         {
@@ -69,9 +71,9 @@ namespace AdventureWorksMilestone2.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
-            {
+            {              
                 return View(model);
-            }
+            }         
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true

@@ -11,7 +11,7 @@ namespace AdventureWorksMilestone2.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class ProductCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,7 @@ namespace AdventureWorksMilestone2.Models
             this.Products = new HashSet<Product>();
             this.ProductCategory1 = new HashSet<ProductCategory>();
         }
-
+    
         public int ProductCategoryID { get; set; }
         public Nullable<int> ParentProductCategoryID { get; set; }
         public string Name { get; set; }
