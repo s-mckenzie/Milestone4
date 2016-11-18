@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    IEnumerable<AdventureWorksMilestone2.Models.Review> reviews = ViewBag.reviews;
 }
 
 <h2>Details</h2>
@@ -78,5 +79,10 @@
     </dl>
 </div>
 <p>
+    <a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br />
+    @foreach(var r in reviews)
+    {
+        @Html.Raw(r.Name + "<br>")
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>

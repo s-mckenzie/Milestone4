@@ -37,9 +37,9 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
         // GET: Reviews/Create
-        public ActionResult Create(int? ProductId)
+        public ActionResult Create(int? pid)
         {
-            ViewBag.ProductID = ProductId;
+            ViewBag.ProductID = pid;
             ViewBag.Rating = "";
             ViewBag.Message = "";
             return View();
@@ -50,7 +50,7 @@ namespace AdventureWorksMilestone2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,ProductID,Name,Rating,Review1")] Review review)
+        public ActionResult Create([Bind(Include = "ProductID,Name,Rating,Review1")] Review review)
         {
             if (ModelState.IsValid)
             {
