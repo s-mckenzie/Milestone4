@@ -1,14 +1,9 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    background: #E1F5FE; /* Standard syntax */
-}
-
+﻿
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 50px;
+    padding-top: 120px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -38,11 +33,10 @@ textarea {
 
 .jumbotron img{
     width: 100%;
+    border:solid 1px;
+    border-radius:5px;
 }
 
-.navbar-header img{
-    height:80px;
-}
 
 th {
     background-color: #4FC3F7;
@@ -52,87 +46,38 @@ tr:nth-child(even){
     background-color: #B3E5FC;
 }
 
-.col-md-4{
-    text-align: center;
-}
+
 
 #leftinfo{
-    float: left;
-    margin-left: 100px;
+    margin:auto;
+    text-align:center;
 }
 
 #rightinfo{
-    float: right;
-    margin-right: 100px;
+    margin:auto;
+    text-align:center;
+    
 }
-
-hr {
-    border-color: black;
-    display: inherit;
+body {
+    /*background: #E1F5FE; /* Standard syntax */
+    background:#ffffff;
 }
-
-.prod {
-    height: 24.5em;
-    border: solid 2px black;
-    overflow-y: visible;
-    border-radius: 10px;
+.jumbotron{
+    margin:auto;
+    border:solid 1px;
 }
-
-details {
-    font-size: 14pt;
-    color: #01579B;
-    z-index: 10;
-    background-color: #B3E5FC;
+.biglogo{
+    float:left;
+    height:50px;
+    width:258px;
 }
-
-summary:hover {
-    cursor: pointer;
+.biglogoimg{
+    height:50px;
+    width:258px;
 }
-
-details p {
-    padding-top: 5px;
-    font-size: 11pt;
-    color: black;
+.thenav{
+    float:right;
 }
-
-h3 {
-    color: #0D47A1;
-    text-decoration: underline;
-}
-
-#searchBar {
-    position: relative;
-    border: 2px solid #0277BD;
-    padding: 3px 15px;
-    font-size: 1.3em;
-    background: #81D4FA;
-    width: 300px;
-    border-radius: 20px;
-}
-
-::-webkit-input-placeholder { /* Chrome */
-  color: #48a3db;
-}
-:-ms-input-placeholder { /* IE 10+ */
-  color: #48a3db;
-}
-::-moz-placeholder { /* Firefox 19+ */
-  color: #48a3db;
-  opacity: 1;
-}
-:-moz-placeholder { /* Firefox 4 - 18 */
-  color: #48a3db;
-  opacity: 1;
-}
-
-#sideBar {
-    height: 800px;
-    width: 250px;
-    position: fixed;
-    top: 14%;
-    left: 5%;
-    background-color: #03A9F4;
-    border: 2px solid #0277BD;
-    border-radius: 10px;
-    box-shadow: 1px 1px 2px #01579B, 0 0 15px #01579B, 0 0 5px #01579B;
+.navbar-toggle{
+    float:right;
 }
