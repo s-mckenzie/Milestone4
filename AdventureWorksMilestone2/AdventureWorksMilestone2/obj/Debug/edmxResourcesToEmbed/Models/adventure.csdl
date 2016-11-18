@@ -73,6 +73,7 @@
     <Property Name="ThumbnailPhotoFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="rowguid" Type="Guid" Nullable="false" />
     <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__Product__0B91BA14" FromRole="Product" ToRole="Reviews" />
     <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Product_ProductCategory_ProductCategoryID" FromRole="Product" ToRole="ProductCategory" />
     <NavigationProperty Name="ProductModel" Relationship="Self.FK_Product_ProductModel_ProductModelID" FromRole="Product" ToRole="ProductModel" />
     <NavigationProperty Name="SalesOrderDetails" Relationship="Self.FK_SalesOrderDetail_Product_ProductID" FromRole="Product" ToRole="SalesOrderDetail" />
@@ -125,6 +126,17 @@
     <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="ProductDescription" Relationship="Self.FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID" FromRole="ProductModelProductDescription" ToRole="ProductDescription" />
     <NavigationProperty Name="ProductModel" Relationship="Self.FK_ProductModelProductDescription_ProductModel_ProductModelID" FromRole="ProductModelProductDescription" ToRole="ProductModel" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Rating" Type="Decimal" Precision="2" Scale="1" Nullable="false" />
+    <Property Name="Review1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__Reviews__Product__0B91BA14" FromRole="Reviews" ToRole="Product" />
   </EntityType>
   <EntityType Name="SalesOrderDetail">
     <Key>
@@ -301,6 +313,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Reviews__Product__0B91BA14">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Product_ProductCategory_ProductCategoryID">
     <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -396,6 +420,7 @@
     <EntitySet Name="ProductDescriptions" EntityType="Self.ProductDescription" />
     <EntitySet Name="ProductModels" EntityType="Self.ProductModel" />
     <EntitySet Name="ProductModelProductDescriptions" EntityType="Self.ProductModelProductDescription" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
     <EntitySet Name="SalesOrderDetails" EntityType="Self.SalesOrderDetail" />
     <EntitySet Name="SalesOrderHeaders" EntityType="Self.SalesOrderHeader" />
     <EntitySet Name="vGetAllCategories" EntityType="Self.vGetAllCategory" />
@@ -421,6 +446,10 @@
     <AssociationSet Name="FK_SalesOrderHeader_Customer_CustomerID" Association="Self.FK_SalesOrderHeader_Customer_CustomerID">
       <End Role="Customer" EntitySet="Customers" />
       <End Role="SalesOrderHeader" EntitySet="SalesOrderHeaders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reviews__Product__0B91BA14" Association="Self.FK__Reviews__Product__0B91BA14">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Reviews" EntitySet="Reviews" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_ProductCategory_ProductCategoryID" Association="Self.FK_Product_ProductCategory_ProductCategoryID">
       <End Role="ProductCategory" EntitySet="ProductCategories" />

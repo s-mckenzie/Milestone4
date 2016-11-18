@@ -1,0 +1,260 @@
+﻿@model AdventureWorksMilestone2.Models.Review
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Review</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input id="Rating" type="hidden" name="Rating" value=@ViewBag.Rating />
+                <img id="1starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="1starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="2starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="2starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="3starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="3starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="4starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="4starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="5starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="5starR" src="~/Content/Images/star-not-R.png" class="star" />
+                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Review1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="Review1">@ViewBag.Message</textarea>
+                @Html.ValidationMessageFor(model => model.Review1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input name="ProductID" type="hidden" value=@ViewBag.ProductId />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<script>
+    var lock = 0;
+
+    $(document).ready(function () {
+        if (document.getElementById("Rating").value == 1) {
+            star1();
+            $("#1star").trigger("click");
+        }else if (document.getElementById("Rating").value == 2) {
+            star2();
+            $("#2star").trigger("click");
+        }else if (document.getElementById("Rating").value == 3) {
+            star3();
+            $("#3star").trigger("click");
+        }else if (document.getElementById("Rating").value == 4) {
+            star4();
+            $("#4star").trigger("click");
+        }else if (document.getElementById("Rating").value == 5) {
+            star5();
+            $("#5star").trigger("click");
+        }
+
+    });
+
+    function starOFF() {
+        if (lock == 0) {
+            $("#1starL").attr("src", "../Content/Images/star-not-L.png")
+            $("#1starR").attr("src", "../Content/Images/star-not-R.png")
+            $("#2starL").attr("src", "../Content/Images/star-not-L.png")
+            $("#2starR").attr("src", "../Content/Images/star-not-R.png")
+            $("#3starL").attr("src", "../Content/Images/star-not-L.png")
+            $("#3starR").attr("src", "../Content/Images/star-not-R.png")
+            $("#4starL").attr("src", "../Content/Images/star-not-L.png")
+            $("#4starR").attr("src", "../Content/Images/star-not-R.png")
+            $("#5starL").attr("src", "../Content/Images/star-not-L.png")
+            $("#5starR").attr("src", "../Content/Images/star-not-R.png")
+        }
+    }
+
+    function star1L() {
+        if (lock == 0) {
+            starOFF();
+            $("#1starL").attr("src", "../Content/Images/star-full-L.png")
+        }
+    }
+    function star1R() {
+        if (lock == 0) {
+            star1L();
+            $("#1starR").attr("src", "../Content/Images/star-full-R.png")
+        }
+    }
+    function star2L() {
+        if (lock == 0) {
+            star1R();
+            $("#2starL").attr("src", "../Content/Images/star-full-L.png")
+        }
+    }
+    function star2R() {
+        if (lock == 0) {
+            star2L();
+            $("#2starR").attr("src", "../Content/Images/star-full-R.png")
+        }
+    }
+    function star3L() {
+        if (lock == 0) {
+            star2R();
+            $("#3starL").attr("src", "../Content/Images/star-full-L.png")
+        }
+    }
+    function star3R() {
+        if (lock == 0) {
+            star3L()
+            $("#3starR").attr("src", "../Content/Images/star-full-R.png")
+        }
+    }
+    function star4L() {
+        if (lock == 0) {
+            star3R();
+            $("#4starL").attr("src", "../Content/Images/star-full-L.png")
+        }
+    }
+    function star4R() {
+        if (lock == 0) {
+            star4L();
+            $("#4starR").attr("src", "../Content/Images/star-full-R.png")
+        }
+    }
+    function star5L() {
+        if (lock == 0) {
+            star4R();
+            $("#5starL").attr("src", "../Content/Images/star-full-L.png")
+        }
+    }
+    function star5R() {
+        if (lock == 0) {
+            star5L();
+            $("#5starR").attr("src", "../Content/Images/star-full-R.png")
+        }
+    }
+
+
+
+    $("#1starL").hover(star1L, starOFF);
+    $("#1starR").hover(star1R, starOFF);
+    $("#2starL").hover(star2L, starOFF);
+    $("#2starR").hover(star2R, starOFF);
+    $("#3starL").hover(star3L, starOFF);
+    $("#3starR").hover(star3R, starOFF);
+    $("#4starL").hover(star4L, starOFF);
+    $("#4starR").hover(star4R, starOFF);
+    $("#5starL").hover(star5L, starOFF);
+    $("#5starR").hover(star5R, starOFF);
+
+    $("#1starL").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 0.5;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star1L();
+    })
+    $("#1starR").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 1;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star1R();
+    })
+    $("#2starL").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 1.5;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star2L();
+    })
+    $("#2starR").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 2;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star2R();
+    })
+    $("#3starL").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 2.5;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star3L();
+    })
+    $("#3starR").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 3;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star3R();
+    })
+    $("#4starL").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 3.5;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star4L();
+    })
+    $("#4starR").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 4;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star4R();
+    })
+    $("#5starL").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 4.5;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star5L();
+    })
+    $("#5starR").click(function () {
+        if (lock == 0) {
+            lock = 1;
+            document.getElementById("Rating").value = 5;
+        } else {
+            lock = 0;
+            document.getElementById("Rating").value = "";
+        }
+        star5R();
+    })
+</script>

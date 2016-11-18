@@ -114,6 +114,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="AdventureWorks2012Model.Review">
+        <MappingFragment StoreEntitySet="Reviews">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Review1" ColumnName="Review" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SalesOrderDetails">
       <EntityTypeMapping TypeName="AdventureWorks2012Model.SalesOrderDetail">
         <MappingFragment StoreEntitySet="SalesOrderDetail">

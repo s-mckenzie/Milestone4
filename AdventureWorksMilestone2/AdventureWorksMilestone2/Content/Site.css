@@ -88,6 +88,13 @@ body {
 }
 
 
+.star{
+    height: 24px;
+    width: 12px;
+    float: right;
+    margin-right: 100px;
+}
+
 hr {
     border-color: black;
     display: inherit;

@@ -33,6 +33,7 @@ namespace AdventureWorksMilestone2.Models
         public virtual DbSet<ProductDescription> ProductDescriptions { get; set; }
         public virtual DbSet<ProductModel> ProductModels { get; set; }
         public virtual DbSet<ProductModelProductDescription> ProductModelProductDescriptions { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<SalesOrderDetail> SalesOrderDetails { get; set; }
         public virtual DbSet<SalesOrderHeader> SalesOrderHeaders { get; set; }
         public virtual DbSet<vGetAllCategory> vGetAllCategories { get; set; }

@@ -108,6 +108,16 @@
     <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="Reviews">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="30" />
+    <Property Name="Rating" Type="decimal" Precision="2" Scale="1" Nullable="false" />
+    <Property Name="Review" Type="varchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="SalesOrderDetail">
     <Key>
       <PropertyRef Name="SalesOrderID" />
@@ -225,6 +235,18 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
   </EntityType>
+  <Association Name="FK__Reviews__Product__0B91BA14">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CustomerAddress_Address_AddressID">
     <End Role="Address" Type="Self.Address" Multiplicity="1" />
     <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
@@ -380,6 +402,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     <EntitySet Name="ProductDescription" EntityType="Self.ProductDescription" Schema="SalesLT" store:Type="Tables" />
     <EntitySet Name="ProductModel" EntityType="Self.ProductModel" Schema="SalesLT" store:Type="Tables" />
     <EntitySet Name="ProductModelProductDescription" EntityType="Self.ProductModelProductDescription" Schema="SalesLT" store:Type="Tables" />
+    <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="SalesLT" store:Type="Tables" />
     <EntitySet Name="SalesOrderDetail" EntityType="Self.SalesOrderDetail" Schema="SalesLT" store:Type="Tables" />
     <EntitySet Name="SalesOrderHeader" EntityType="Self.SalesOrderHeader" Schema="SalesLT" store:Type="Tables" />
     <EntitySet Name="vGetAllCategories" EntityType="Self.vGetAllCategories" store:Type="Views" store:Schema="SalesLT">
@@ -436,6 +459,10 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     [vProductModelCatalogDescription].[ModifiedDate] AS [ModifiedDate]
     FROM [SalesLT].[vProductModelCatalogDescription] AS [vProductModelCatalogDescription]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK__Reviews__Product__0B91BA14" Association="Self.FK__Reviews__Product__0B91BA14">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
     <AssociationSet Name="FK_CustomerAddress_Address_AddressID" Association="Self.FK_CustomerAddress_Address_AddressID">
       <End Role="Address" EntitySet="Address" />
       <End Role="CustomerAddress" EntitySet="CustomerAddress" />

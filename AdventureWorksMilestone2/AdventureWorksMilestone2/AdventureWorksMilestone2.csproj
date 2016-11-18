@@ -181,10 +181,9 @@
     <Compile Include="Controllers\BikeController.cs" />
     <Compile Include="Controllers\BikeManagerController.cs" />
     <Compile Include="Controllers\GearController.cs" />
-    <Compile Include="Controllers\GearManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,6 +230,9 @@
     <Compile Include="Models\ProductModelProductDescription.cs">
       <DependentUpon>adventure.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Review.cs">
+      <DependentUpon>adventure.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SalesOrderDetail.cs">
       <DependentUpon>adventure.tt</DependentUpon>
     </Compile>
@@ -264,6 +266,10 @@
     <Content Include="Content\Images\awc_logo.png" />
     <Content Include="Content\Images\BikeImage.jpg" />
     <Content Include="Content\Images\GearImage.jpg" />
+    <Content Include="Content\Images\star-full-L.png" />
+    <Content Include="Content\Images\star-full-R.png" />
+    <Content Include="Content\Images\star-not-L.png" />
+    <Content Include="Content\Images\star-not-R.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -300,6 +306,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Content\Images\star-full.ico" />
+    <Content Include="Content\Images\star-full.png" />
+    <Content Include="Content\Images\star-not.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -352,13 +361,11 @@
     <Content Include="Views\BikeManager\Edit.cshtml" />
     <Content Include="Views\BikeManager\Index.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
-    <Content Include="Views\GearManager\Create.cshtml" />
-    <Content Include="Views\GearManager\Delete.cshtml" />
-    <Content Include="Views\GearManager\Details.cshtml" />
-    <Content Include="Views\GearManager\Edit.cshtml" />
-    <Content Include="Views\GearManager\Index.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
