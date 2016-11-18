@@ -8,7 +8,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 50px;
+    padding-top: 120px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -38,6 +38,8 @@ textarea {
 
 .jumbotron img{
     width: 100%;
+    border:solid 1px;
+    border-radius:5px;
 }
 
 .navbar-header img{
@@ -56,14 +58,64 @@ tr:nth-child(even){
     text-align: center;
 }
 
-#leftinfo{
+body {
+    /*background: #E1F5FE; /* Standard syntax */
+    background: #ffffff;
+}
+
+.jumbotron {
+    margin: auto;
+    border: solid 1px;
+}
+
+.biglogo {
     float: left;
-    margin-left: 100px;
+    height: 50px;
+    width: 258px;
+}
+
+.biglogoimg {
+    height: 50px;
+    width: 258px;
+}
+
+.thenav {
+    float: right;
+}
+
+.navbar-toggle {
+    float: right;
+}
+
+#leftinfo{
+    margin:auto;
+    text-align:center;
 }
 
 #rightinfo{
-    float: right;
-    margin-right: 100px;
+    margin:auto;
+    text-align:center;
+}
+
+.biglogo{
+    float:left;
+    height:50px;
+    width:258px;
+}
+.biglogoimg{
+    height:50px;
+    width:258px;
+}
+.thenav{
+    float:right;
+}
+.navbar-toggle{
+    float:right;
+}
+
+.star{
+    height: 24px;
+    width: 12px;
 }
 
 hr {
@@ -135,4 +187,72 @@ h3 {
     border: 2px solid #0277BD;
     border-radius: 10px;
     box-shadow: 1px 1px 2px #01579B, 0 0 15px #01579B, 0 0 5px #01579B;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 120px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar, .navbar-inverse, .navbar-fixed-top{
+    background-color:#039BE5;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: black;
+  opacity: 0.5;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.jumbotron img{
+    width: 100%;
+    border:solid 1px;
+    border-radius:5px;
+}
+
+
+th {
+    background-color: #4FC3F7;
+}
+
+tr:nth-child(even){
+    background-color: #B3E5FC;
+}
+
+
+
+#leftinfo{
+    margin:auto;
+    text-align:center;
+}
+
+#rightinfo{
+    margin:auto;
+    text-align:center;
+    
+}
+body {
+    /*background: #E1F5FE; /* Standard syntax */
+    background:#ffffff;
+}
+.jumbotron{
+    margin:auto;
+    border:solid 1px;
 }
