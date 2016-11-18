@@ -96,14 +96,6 @@ body {
     margin:auto;
     text-align:center;
 }
-body {
-    /*background: #E1F5FE; /* Standard syntax */
-    background:#ffffff;
-}
-.jumbotron{
-    margin:auto;
-    border:solid 1px;
-}
 
 .star{
     height: 24px;
