@@ -7,23 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdventureWorksMilestone2.Models;
-using System.IO;
 
 namespace AdventureWorksMilestone2.Controllers
 {
-    public class BikeManagerController : Controller
+    public class GearManagerController : Controller
     {
         private AdventureWorks2012Entities db = new AdventureWorks2012Entities();
 
-        // GET: BikeManager
+        // GET: GearManager
         [Authorize(Roles = "Manager")]
         public ActionResult Index()
         {
-            var bikes = from x in db.Products where x.ProductCategoryID >= 5 && x.ProductCategoryID <= 7 select x;
-            return View(bikes.ToList());
+            var gears = from x in db.Products where x.ProductCategoryID > 7 select x;
+            return View(gears.ToList());
         }
 
-        // GET: BikeManager/Details/5
+        // GET: GearManager/Details/5
         [Authorize(Roles = "Manager")]
         public ActionResult Details(int? id)
         {
@@ -38,7 +37,6 @@ namespace AdventureWorksMilestone2.Controllers
             }
             return View(product);
         }
-
 
         // Used to search for unique product names
         [Authorize(Roles = "Manager")]
@@ -71,28 +69,28 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
         [Authorize(Roles = "Manager")]
-        public ActionResult GetBikeModel(int? id)
+        public ActionResult GetGearModel(int? id)
         {
             var model = (from x in db.vProductAndDescription2 where x.ProductCategoryID == id select new SelectListItem { Value = x.ProductModelID.ToString(), Text = x.ProductModel }).Distinct();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: BikeManager/Create
+        // GET: GearManager/Create
         [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
-            var category = (from x in db.ProductCategories where x.ParentProductCategoryID == 1 select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
+            var category = (from x in db.ProductCategories where x.ParentProductCategoryID != 1 && x.ParentProductCategoryID != null select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
             ViewBag.ProductCategory = category;
 
             return View();
         }
 
-        // POST: BikeManager/Create
+        // POST: GearManager/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult Create([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product)
         {
             if (ModelState.IsValid)
@@ -110,12 +108,12 @@ namespace AdventureWorksMilestone2.Controllers
                 return RedirectToAction("Index");
             }
 
-            var category = (from x in db.ProductCategories where x.ParentProductCategoryID == 1 select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
+            var category = (from x in db.ProductCategories where x.ParentProductCategoryID != 1 && x.ParentProductCategoryID != null select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
             ViewBag.ProductCategory = category;
             return View(product);
         }
 
-        // GET: BikeManager/Edit/5
+        // GET: GearManager/Edit/5
         [Authorize(Roles = "Manager")]
         public ActionResult Edit(int? id)
         {
@@ -129,54 +127,20 @@ namespace AdventureWorksMilestone2.Controllers
                 return HttpNotFound();
             }
             ViewBag.ProductCategoryID = new SelectList(db.ProductCategories, "ProductCategoryID", "Name", product.ProductCategoryID);
-
             return View(product);
         }
 
-        // POST: BikeManager/Edit/5
+        // POST: GearManager/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, int j)
+        [Authorize(Roles = "Manager")]
+        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product)
         {
             if (ModelState.IsValid)
-            {          
-                product.ModifiedDate = System.DateTime.Now;
-                product.rowguid = Guid.NewGuid();
-
-                //Request["fileUpload"];
-
-                // No new image was chosen
-                if (product.ThumbNailPhoto == null)
-                {
-                    // Since the photos always turn null on edit, we need to fetch the product's details 
-                    var item = db.Products.SingleOrDefault(i => i.ProductID == product.ProductID);
-                    
-                    // In case thumbnail photo was already null
-                    if(item.ThumbNailPhoto == null)
-                    {
-                        // Get the byte array for no image
-                        var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
-                        product.ThumbNailPhoto = image.ThumbNailPhoto;
-                        product.ThumbnailPhotoFileName = "no_image_available_small.gif";
-                    }
-                    else
-                    {
-                        product.ThumbNailPhoto = item.ThumbNailPhoto;
-                        product.ThumbnailPhotoFileName = item.ThumbnailPhotoFileName;
-                    }   
-                                  
-                    // We have to set the new values this way instead or else Visual Studios will get confused with "item" and "product" sharing the same ID
-                    // It's weird but this works
-                    db.Entry(item).CurrentValues.SetValues(product);    
-                }
-                else
-                {
-                    db.Entry(product).State = EntityState.Modified;
-                }
-                
+            {
+                db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -184,7 +148,7 @@ namespace AdventureWorksMilestone2.Controllers
             return View(product);
         }
 
-        // GET: BikeManager/Delete/5
+        // GET: GearManager/Delete/5
         [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
@@ -200,10 +164,10 @@ namespace AdventureWorksMilestone2.Controllers
             return View(product);
         }
 
-        // POST: BikeManager/Delete/5
-        [Authorize(Roles = "Manager")]
+        // POST: GearManager/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
