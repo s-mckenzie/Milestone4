@@ -87,15 +87,6 @@ body {
     float: right;
 }
 
-#leftinfo{
-    margin:auto;
-    text-align:center;
-}
-
-#rightinfo{
-    margin:auto;
-    text-align:center;
-}
 
 hr {
     border-color: black;
@@ -234,19 +225,4 @@ body {
 .jumbotron{
     margin:auto;
     border:solid 1px;
-}
-.biglogo{
-    float:left;
-    height:50px;
-    width:258px;
-}
-.biglogoimg{
-    height:50px;
-    width:258px;
-}
-.thenav{
-    float:right;
-}
-.navbar-toggle{
-    float:right;
 }
