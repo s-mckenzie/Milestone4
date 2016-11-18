@@ -181,8 +181,10 @@
     <Compile Include="Controllers\BikeController.cs" />
     <Compile Include="Controllers\BikeManagerController.cs" />
     <Compile Include="Controllers\GearController.cs" />
+    <Compile Include="Controllers\GearManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
