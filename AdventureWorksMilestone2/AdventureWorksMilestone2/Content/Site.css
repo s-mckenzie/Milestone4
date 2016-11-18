@@ -87,12 +87,35 @@ body {
     float: right;
 }
 
+#leftinfo{
+    margin:auto;
+    text-align:center;
+}
+
+#rightinfo{
+    margin:auto;
+    text-align:center;
+}
+
+.biglogo{
+    float:left;
+    height:50px;
+    width:258px;
+}
+.biglogoimg{
+    height:50px;
+    width:258px;
+}
+.thenav{
+    float:right;
+}
+.navbar-toggle{
+    float:right;
+}
 
 .star{
     height: 24px;
     width: 12px;
-    float: right;
-    margin-right: 100px;
 }
 
 hr {
