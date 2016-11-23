@@ -25,11 +25,13 @@
                     // AJAX GET -> type, url, data (category id), success
                     $.ajax({
                         type: "GET",                // Post type
-                        url: "GetBikeModel/",       // Function
+                        url: "/BikeManager/GetBikeModel/",       // Function
                         dataType: 'json',           // Using json, jquery will make parse for  you
                         data: { id: id },           // Data to send (GetBikeModel's int? id takes var id(see above))
                         success: function (data) {
                             var options = "";
+
+                            //alert("1");
 
                             // Loop through every model
                             for (var i = 0; i < data.length; i++) {
@@ -40,8 +42,9 @@
                             $("#ProductModelID").html(options.toString());
                             //alert(JSON.stringify(data));
                         }
-                    })
+                    });
 
+                    //alert("2");
 
                     $("#ProductModelID").attr("disabled", false);        // Enable Product Model selection
                 }

@@ -344,7 +344,6 @@ C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMiles
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\obj\Debug\AdventureWorksMilestone2.csprojResolveAssemblyReference.cache
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\obj\Debug\AdventureWorksMilestone2.dll
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\obj\Debug\AdventureWorksMilestone2.pdb
 C:\Users\1449877\Desktop\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\roslyn\csc.exe
@@ -631,3 +630,7 @@ F:\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\Microsoft.Ow
 F:\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\Microsoft.Owin.Security.Google.xml
 F:\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\Microsoft.Owin.Security.Twitter.xml
 F:\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\SendGrid.CSharp.HTTP.Client.dll
+C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\SendGrid.dll
+C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\System.Net.Http.Formatting.dll
+C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\System.Net.Http.Formatting.xml
