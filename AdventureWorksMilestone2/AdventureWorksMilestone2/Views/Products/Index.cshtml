@@ -12,20 +12,37 @@
     <script>
         $(document).ready(function () {
             var searchString;
-            $('#searchBar').keyup(search);
+            var labelPadding = 16;
+            var titleLoc = 0;
+            var idLoc = 6;
+            var categLoc = 5;
+            $('#searchBar').keyup(function () {
+                search(this, null);
+                $('input.f').each(function (key, value) {
+                    value.checked = false;
+                    value.disabled = false;
+                });
+            });
 
-            function search() {
+            function search(param, str) {
                 searchString = $('#searchBar').val();
+
+                if (str != null) {
+                    searchString = str;
+                }
 
                 arr = document.getElementsByClassName("prod");
 
                 for (var i = 0; i < arr.length; i++) {
                     obj = document.getElementById(arr[i].id);
-                    title = obj.children[0].firstChild;
-                    id = obj.children[6];
-                    idString = id.textContent.substring(15, id.textContent.length);
+                    title = obj.children[titleLoc].firstChild;
+                    id = obj.children[idLoc];
+                    idString = id.textContent.substring(labelPadding, id.textContent.length);
+                    category = obj.children[categLoc];
+                    categoryString = category.textContent.substring(labelPadding, category.length);
                     a = false;
-                    b = false
+                    b = false;
+                    c = false;
                     if (title.textContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
                         title.style.backgroundColor = "#18FFFF";
                         obj.removeAttribute("style");
@@ -42,7 +59,15 @@
                         id.style.backgroundColor = "";
                         b = true;
                     }
-                    if (a && b) {
+                    if (categoryString.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
+                        category.style.backgroundColor = "#18FFFF";
+                        obj.removeAttribute("style");
+                    }
+                    else {
+                        category.style.backgroundColor = "";
+                        c = true;
+                    }
+                    if (a && b && c) {
                         obj.style.display = "none";
                     }
                 }
@@ -59,14 +84,79 @@
                 }
             }
 
-            search();
+            search("");
+
+            $('input.bikeFilters').change(function () {
+                checkHandler(true, "BIKES");
+
+                $('input.gearFilters').prop("disabled", true);
+
+                var elems = $('input.bikeFilters');
+
+                while (true) {
+                    if (elems[1].checked) {
+                        checkHandler(this, "MOUNTAIN BIKES");
+                        elems[2].disabled = true;
+                        elems[3].disabled = true;
+                        break;
+                    }
+                    else {
+                        elems[2].disabled = false;
+                        elems[3].disabled = false;
+                    }
+                    if (elems[2].checked) {
+                        checkHandler(this, "TOURING BIKES");
+                        elems[1].disabled = true;
+                        elems[3].disabled = true;
+                        break;
+                    }
+                    else {
+                        elems[1].disabled = false;
+                        elems[3].disabled = false;
+                    }
+                    if (elems[3].checked) {
+                        checkHandler(this, "ROAD BIKES");
+                        elems[1].disabled = true;
+                        elems[2].disabled = true;
+                        break;
+                    }
+                    else {
+                        elems[1].disabled = false;
+                        elems[2].disabled = false;
+                    }
+
+                    if (!elems[0].checked) {
+                        checkHandler(false, null);
+                    }
+                    $('input.gearFilters').prop("disabled", false);
+                    break;
+                }
+            });
+
+            $('#clothingFilter').change(function () { checkHandler(this.checked, "NOTHING");});
+
+            $('#framesFilter').change(function () { checkHandler(this.checked, "FRAME");});
+
+            function checkHandler(checked, str) {
+                if (checked) {
+                    search(null, str);
+                }
+                else {
+                    search(null, null);
+                }
+            }
         });
     </script>
 </head>
 
 <h1>Products</h1> <input type="text" id="searchBar" placeholder="Search Products"/>
 <div id="filters">
-    <div class="col-sm-3 filter"><label for="bikeFilter">Bikes</label><input type="checkbox" id="bikeFilter" /></div>
+    <div class="col-sm-4 filter"><label for="bikeFilter">Bikes</label><input type="checkbox" id="bikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="mountainBikeFilter">Mountain Bikes</label><input type="checkbox" id="mountainBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="touringBikeFilter">Touring Bikes</label><input type="checkbox" id="touringBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="roadBikeFilter">Road Bikes</label><input type="checkbox" id="roadBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="clothingFilter">Clothing</label><input type="checkbox" id="clothingFilter" class="gearFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="framesFilter">Frames</label><input type="checkbox" id="framesFilter" class="gearFilters f" /></div>
 </div>
 <hr />
 <div>

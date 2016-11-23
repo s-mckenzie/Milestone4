@@ -245,7 +245,7 @@ body {
 #filters {
     background-color: dodgerblue;
     height: 50px;
-    width: 65%;
+    width: 800px;
     float: right;
     border-radius: 5px;
     position: relative;
@@ -263,6 +263,6 @@ input[type="checkbox"] {
     margin-left: 7px;
 }
 
-input[type="checkbox"]:hover {
-    cursor: pointer;
+html {
+    overflow: overlay;
 }
