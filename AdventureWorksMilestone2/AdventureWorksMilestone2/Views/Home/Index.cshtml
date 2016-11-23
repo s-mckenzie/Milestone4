@@ -19,21 +19,15 @@
             </div>
         </div>
     </div>
+
+@{List<String> temp = new List<string>(); }
 @foreach (var item in ViewBag.images)
 {
-    @Html.DisplayFor(modelItem => item);
+    temp.Add("<img src='data:image;base64," + @System.Convert.ToBase64String(item) + "' height='100' />");
+
 
 }
 <script>
-    
-
-    $(document).ready(function () {
-        setInterval(slide, 3000);
-        slide();
-    });
-    function slide() {
-
-    }
-
-
+    var a = Math.floor((Math.random() * @temp.Count + 1);
+    console.log("@temp[a]");
 </script>
