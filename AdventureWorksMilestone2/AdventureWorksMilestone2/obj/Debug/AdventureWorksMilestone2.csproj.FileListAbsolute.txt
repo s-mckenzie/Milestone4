@@ -634,3 +634,4 @@ C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMiles
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\SendGrid.dll
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\System.Net.Http.Formatting.dll
 C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\System.Net.Http.Formatting.xml
+C:\Users\1493236\Desktop\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\obj\Debug\AdventureWorksMilestone2.csprojResolveAssemblyReference.cache
