@@ -267,11 +267,16 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\awc_logo.png" />
     <Content Include="Content\Images\BikeImage.jpg" />
+    <Content Include="Content\Images\blue.jpg" />
     <Content Include="Content\Images\GearImage.jpg" />
+    <Content Include="Content\Images\green.jpg" />
+    <Content Include="Content\Images\orange.jpg" />
     <Content Include="Content\Images\star-full-L.png" />
     <Content Include="Content\Images\star-full-R.png" />
     <Content Include="Content\Images\star-not-L.png" />
     <Content Include="Content\Images\star-not-R.png" />
+    <Content Include="Content\Images\stock-photo-happy-young-man-wearing-glasses-and-smiling-as-he-works-on-his-laptop-to-get-all-his-business-272163653.jpg" />
+    <Content Include="Content\Images\yellow.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
