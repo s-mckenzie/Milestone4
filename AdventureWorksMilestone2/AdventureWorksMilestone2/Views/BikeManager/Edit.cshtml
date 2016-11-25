@@ -167,7 +167,7 @@
             <div class="col-md-10">
                 <!--<input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
                     Will need to work on this after byte array gets replaced-->      
-                @Html.TextBox("fileUpload", "", new { @class = "text-danger", @type = "file", @accept = "image/*" }) 
+                @Html.TextBox("file", "", new { @class = "text-danger", @type = "file", @accept = "image/*" }) 
                 @Html.ValidationMessageFor(model => model.ThumbNailPhoto, "", new { @class = "text-danger" })
             </div>
         </div>        

@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using AdventureWorksMilestone2.Models;
 using System.IO;
+using System.Web.Helpers;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace AdventureWorksMilestone2.Controllers
 {
@@ -77,6 +81,8 @@ namespace AdventureWorksMilestone2.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+
+
         // GET: BikeManager/Create
         [Authorize(Roles = "Manager")]
         public ActionResult Create()
@@ -93,17 +99,45 @@ namespace AdventureWorksMilestone2.Controllers
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, HttpPostedFileBase uploadFile)
         {
             if (ModelState.IsValid)
-            {
-                // Seems to be the only functioning way I could find
-                var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
-
+            {      
                 product.ModifiedDate = System.DateTime.Now;
                 product.rowguid = Guid.NewGuid();
-                product.ThumbNailPhoto = image.ThumbNailPhoto;
-                product.ThumbnailPhotoFileName = "no_image_available_small.gif";
+
+                // Manager uploaded an image
+                if (uploadFile != null && uploadFile.ContentLength > 0)
+                {              
+                    byte[] data;
+
+                    // Convert our image into a byte array
+                    using (Stream inputStream = uploadFile.InputStream)
+                    {
+                        MemoryStream memory = inputStream as MemoryStream;
+                        if(memory == null)
+                        {
+                            memory = new MemoryStream();
+                            inputStream.CopyTo(memory);
+                        }
+                        data = memory.ToArray();
+                    }
+
+                    product.ThumbNailPhoto = data;
+
+                    //product.ThumbNailPhoto = ConvertImage(uploadFile, data);
+
+                    product.ThumbnailPhotoFileName = uploadFile.FileName;
+                }
+                // Manager didn't upload anything
+                else
+                {
+                    // Seems to be the only functioning way I could find
+                    var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
+                    product.ThumbNailPhoto = image.ThumbNailPhoto;
+                    product.ThumbnailPhotoFileName = "no_image_available_small.gif";
+                }
+                
 
                 db.Products.Add(product);
                 db.SaveChanges();

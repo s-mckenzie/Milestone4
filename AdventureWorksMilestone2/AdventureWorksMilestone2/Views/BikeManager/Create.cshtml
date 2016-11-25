@@ -54,10 +54,11 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm("Create", "BikeManager", FormMethod.Post, new { enctype="multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
@@ -137,7 +138,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SellStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SellStartDate, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt") }  })
+                @Html.EditorFor(model => model.SellStartDate, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt") } })
                 @Html.ValidationMessageFor(model => model.SellStartDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -155,6 +156,16 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DiscontinuedDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DiscontinuedDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThumbNailPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="uploadFile" id="uploadFile" accept="image/*" class="form-control">
+                <!-- Will need to work on this after byte array gets replaced-->
+                @*@Html.TextBox("file", "", new { @class = "text-danger", @type = "file", @name = "file", @accept = "image/*" })*@
+                @Html.ValidationMessageFor(model => model.ThumbNailPhoto, "", new { @class = "text-danger" })
             </div>
         </div>
 
