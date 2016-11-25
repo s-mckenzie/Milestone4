@@ -1,8 +1,9 @@
 ﻿@model AdventureWorksMilestone2.Models.Product
 
 @{
-    ViewBag.Title = "Details";
-    IEnumerable<AdventureWorksMilestone2.Models.Review> reviews = ViewBag.reviews;
+        ViewBag.Title = "Details";
+        IEnumerable<AdventureWorksMilestone2.Models.Review> reviews = ViewBag.reviews;
+
 }
 
 <h2>Details</h2>
@@ -82,7 +83,37 @@
     <a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br />
     @foreach(var r in reviews)
     {
-        @Html.Raw(r.Name + "<br>")
+        @Html.Raw("<div class='review'>")
+        @Html.Raw("<div class='review_U'>")
+        @Html.Raw(r.Name)
+        @Html.Raw("</div>")
+        @Html.Raw("<div class='review_R'>")
+        for (decimal x = 0; x < 5; x = x + ((decimal) 0.5))
+        {
+            String full;
+            String side;
+
+            if(  x <= r.Rating)
+            {
+                full = "full";
+            }else
+            {
+                full = "not";
+            }
+            if (((double) x / 0.5)%2 == 0)
+            {
+                side = "L";
+            }else
+            {
+                side = "R";
+            }
+            @Html.Raw("<img src='../Content/Images/star-" + full + "-" + side + ".png' class='star' />")
+        }
+        @Html.Raw("<p class='review_M'>")
+        @Html.Raw(r.Review1)
+        @Html.Raw("</div>")
+
+        @Html.Raw("</div>")
     }
     @Html.ActionLink("Back to List", "Index")
 </p>

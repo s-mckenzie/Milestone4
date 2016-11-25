@@ -256,3 +256,16 @@ body {
     margin:auto;
     border:solid 1px;
 }
+
+.review{
+    border: 2px solid;
+    padding: 2px;
+}
+.review_U{
+    border: 2px solid;
+}
+.review_R{
+}
+.review_M{
+    border: 2px solid;
+}

@@ -11,7 +11,6 @@ namespace AdventureWorksMilestone2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Review
@@ -21,8 +20,8 @@ namespace AdventureWorksMilestone2.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "* Required")]
         public decimal Rating { get; set; }
-        [DisplayName("Comments")]
-        [Required(ErrorMessage = "* Required")]
+        [Required(ErrorMessage ="* Required")]
+        [Display(Name="Review")]
         public string Review1 { get; set; }
     
         public virtual Product Product { get; set; }

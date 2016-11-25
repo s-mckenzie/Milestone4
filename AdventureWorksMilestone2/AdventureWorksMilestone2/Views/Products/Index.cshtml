@@ -6,6 +6,8 @@
     double gramToKilo   = 0.001;
     double gramToPounds = 0.00220462;
     int count = 0;
+
+    var AverageReviews = ViewBag.AvgReviews;
 }
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -62,7 +64,7 @@
 
 <h1>Products</h1> <input type="text" id="searchBar" placeholder="Search Products"/>
 <hr />
-<div id=>
+<div>
     @foreach (var item in Model) {
         count++;
         string url = "";
@@ -83,6 +85,10 @@
             url += "Bike/Details/" + item.ProductModelID;
         }
 
+        double avgRating = 0;
+
+        
+
         <div id=@count class="col-md-4 prod">
             <a href="~/@url"><h3>@Html.DisplayFor(modelItem => item.Name)</h3></a>
             <a href="~/Products/Details?id=@item.ProductID"><img src="data:image;base64,@System.Convert.ToBase64String(item.ThumbNailPhoto)" height="100" /></a>
@@ -91,6 +97,8 @@
             <h4><label><strong>List Price:</strong></label>     $@Html.DisplayFor(modelItem => item.ListPrice)          <br /></h4>
             <h4><label><strong>Category:</strong></label>       @Html.DisplayFor(modelItem => item.ProductCategory.Name)<br /></h4>
             <h4><label><strong>Product Number:</strong></label> @Html.DisplayFor(modelItem => item.ProductNumber)       <br /></h4>
+            
+            @avgRating
 
             @if (item.Color != null || item.Size != null || weight != -1)
             {

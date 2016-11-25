@@ -54,6 +54,10 @@ namespace AdventureWorksMilestone2.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(review.Name == null)
+                {
+                    review.Name = "Anonymous";
+                }
                 db.Reviews.Add(review);
                 db.SaveChanges();
                 return RedirectToAction("Index");
