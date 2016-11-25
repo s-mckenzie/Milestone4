@@ -8,7 +8,12 @@
         
         <div class="row">
             <!--<img src="data:image;base64,System.Convert.ToBase64String(item.ThumbNailPhoto)" height="100" />-->
-            <img src="~/Content/Images/BikeImage.jpg" alt="Image1">
+            <!--<img src="~/Content/Images/BikeImage.jpg" alt="Image1">-->
+            @foreach (var item in ViewBag.images)
+            {
+                <img class="mySlides col-md-4" src='data:image;base64,@System.Convert.ToBase64String(item)'   />
+
+            }
             <div class="col-md-pull-6" id="leftinfo">
                 <h2>Browse our selection of bikes</h2>
                 <p><a class="btn btn-default" href="~/Bike/Index">Learn more &raquo;</a></p>
@@ -20,14 +25,23 @@
         </div>
     </div>
 
-@{List<String> temp = new List<string>(); }
-@foreach (var item in ViewBag.images)
-{
-    temp.Add("<img src='data:image;base64," + @System.Convert.ToBase64String(item) + "' height='100' />");
 
-
-}
 <script>
-    var a = Math.floor((Math.random() * @temp.Count + 1);
-    console.log("@temp[a]");
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        var rand = (Math.floor(Math.random() * x.length) + 1);
+        console.log(rand);
+        x[rand].style.display = "block";
+        rand = (Math.floor(Math.random() * x.length + 1));
+        console.log(rand);
+        x[rand].style.display = "block";
+        setTimeout(carousel, 2000); // Change image every 2 seconds
+    }
+
 </script>

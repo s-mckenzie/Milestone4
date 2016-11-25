@@ -210,7 +210,6 @@ textarea {
 }
 
 .jumbotron img{
-    width: 100%;
     border:solid 1px;
     border-radius:5px;
 }
@@ -265,4 +264,11 @@ input[type="checkbox"] {
 
 html {
     overflow: overlay;
+}
+
+.mySlides{
+    height:200px;
+    width:50% !important;
+    padding:0;
+    margin:0;
 }
