@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdventureWorksMilestone2.Models;
+using System.Diagnostics;
 
 namespace AdventureWorksMilestone2.Controllers
 {
@@ -17,8 +18,22 @@ namespace AdventureWorksMilestone2.Controllers
         // GET: Products
         public ActionResult Index()
         {
+            ViewBag.AvgReviews = from x in db.Reviews group x by new { ProductID = x.ProductID } into grouped select new { ProductID = grouped.Key.ProductID, AvgRating = grouped.Average(x => x.Rating) };
+            //Debug.WriteLine(ViewBag.AvgReviews );
+
+            var cats = from x in db.ProductCategories where x.ParentProductCategoryID > 1 select x.Name;
+
+            ViewBag.Categories = cats;
+
             var products = from x in db.Products where x.SellEndDate == null select x;
             return View(products);
+        }
+
+        public ActionResult Index(String category)
+        {
+            ViewBag.searchParam = category;
+
+            return Index();
         }
 
         // GET: Products/Details/5
@@ -28,7 +43,9 @@ namespace AdventureWorksMilestone2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Id = id;
             Product product = db.Products.Find(id);
+            ViewBag.reviews = from x in db.Reviews where x.ProductID == id select x ;
             if (product == null)
             {
                 return HttpNotFound();
