@@ -28,7 +28,7 @@ namespace AdventureWorksMilestone2.Controllers
             var products = from x in db.Products where x.SellEndDate == null select x;
             return View(products);
         }
-
+        [HttpPost]
         public ActionResult Index(String category)
         {
             ViewBag.searchParam = category;
