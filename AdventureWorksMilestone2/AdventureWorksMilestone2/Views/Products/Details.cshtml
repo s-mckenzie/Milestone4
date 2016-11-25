@@ -80,7 +80,7 @@
     </dl>
 </div>
 <p>
-    <a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br />
+    <button class="btn"><a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br /></button>
     @foreach(var r in reviews)
     {
         @Html.Raw("<div class='review'>")
@@ -88,7 +88,7 @@
         @Html.Raw(r.Name)
         @Html.Raw("</div>")
         @Html.Raw("<div class='review_R'>")
-        for (decimal x = 0; x < 5; x = x + ((decimal) 0.5))
+        for (decimal x = (decimal) 0.5; x <= 5; x = x + ((decimal) 0.5))
         {
             String full;
             String side;
@@ -102,12 +102,12 @@
             }
             if (((double) x / 0.5)%2 == 0)
             {
-                side = "L";
+                side = "R";
             }else
             {
-                side = "R";
+                side = "L";
             }
-            @Html.Raw("<img src='../Content/Images/star-" + full + "-" + side + ".png' class='star' />")
+            @Html.Raw("<img src='../../Content/Images/star-" + full + "-" + side + ".png' class='star' />")
         }
         @Html.Raw("<p class='review_M'>")
         @Html.Raw(r.Review1)
@@ -115,8 +115,6 @@
 
         @Html.Raw("</div>")
     }
-    @Html.ActionLink("Back to List", "Index")
-    <button class="btn">@Html.ActionLink("Leave a Review for this Product", "Create", "Reviews")</button>
-    <hr />
+    <br />
     <button class="btn">@Html.ActionLink("Back to List", "Index")</button>
 </p>

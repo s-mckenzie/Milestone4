@@ -7,7 +7,7 @@
     double gramToPounds = 0.00220462;
     int count = 0;
 
-    var AverageReviews = ViewBag.AvgReviews;
+    IEnumerable<AdventureWorksMilestone2.Models.Review> Ratings = ViewBag.Ratings;
 }
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -182,9 +182,25 @@
             url += "Bike/Details/" + item.ProductModelID;
         }
 
-        double avgRating = 0;
+        decimal avgRating = 0;
+        var prodRatings = from x in Ratings where x.ProductID == item.ProductID select x;
+        int c = 0;
+        foreach (var r in prodRatings)
+        {
+            System.Diagnostics.Debug.WriteLine(r.Rating);
+            c++;
+            avgRating += r.Rating;
+        }
 
-        
+        String ratingDisplay = "";
+        if (avgRating > 0)
+        {
+            avgRating = (avgRating / c);
+            ratingDisplay = "<br><img src='../Content/Images/stars.png' class='avgReviewStars'><img src = '../Content/Images/stars-back.png' class='avgReviewScore' width='"+ ((avgRating / 5) * 125) +"'>";
+        }else
+        {
+            ratingDisplay = "No Reviews Found";
+        }
 
         <div id=@count class="col-md-4 prod">
             <a href="~/@url"><h3>@Html.DisplayFor(modelItem => item.Name)</h3></a>
@@ -195,7 +211,7 @@
             <h4><label><strong>Category:</strong></label>       @Html.DisplayFor(modelItem => item.ProductCategory.Name)<br /></h4>
             <h4><label><strong>Product Number:</strong></label> @Html.DisplayFor(modelItem => item.ProductNumber)       <br /></h4>
             
-            @avgRating
+            @Html.Raw(ratingDisplay)
 
             @if (item.Color != null || item.Size != null || weight != -1)
             {
