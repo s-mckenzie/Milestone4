@@ -93,6 +93,28 @@ namespace AdventureWorksMilestone2.Controllers
             return View();
         }
 
+
+        // GET: BikeManager/Create
+        [Authorize(Roles = "Manager")]
+        public byte[] ConvertImage(HttpPostedFileBase file)
+        {
+            byte[] data;
+
+            // Convert our image into a byte array
+            using (Stream inputStream = file.InputStream)
+            {
+                MemoryStream memory = inputStream as MemoryStream;
+                if (memory == null)
+                {
+                    memory = new MemoryStream();
+                    inputStream.CopyTo(memory);
+                }
+                data = memory.ToArray();
+            }
+
+            return data;
+        }
+
         // POST: BikeManager/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -108,25 +130,8 @@ namespace AdventureWorksMilestone2.Controllers
 
                 // Manager uploaded an image
                 if (uploadFile != null && uploadFile.ContentLength > 0)
-                {              
-                    byte[] data;
-
-                    // Convert our image into a byte array
-                    using (Stream inputStream = uploadFile.InputStream)
-                    {
-                        MemoryStream memory = inputStream as MemoryStream;
-                        if(memory == null)
-                        {
-                            memory = new MemoryStream();
-                            inputStream.CopyTo(memory);
-                        }
-                        data = memory.ToArray();
-                    }
-
-                    product.ThumbNailPhoto = data;
-
-                    //product.ThumbNailPhoto = ConvertImage(uploadFile, data);
-
+                {                             
+                    product.ThumbNailPhoto = ConvertImage(uploadFile);
                     product.ThumbnailPhotoFileName = uploadFile.FileName;
                 }
                 // Manager didn't upload anything
@@ -138,7 +143,6 @@ namespace AdventureWorksMilestone2.Controllers
                     product.ThumbnailPhotoFileName = "no_image_available_small.gif";
                 }
                 
-
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -174,23 +178,28 @@ namespace AdventureWorksMilestone2.Controllers
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, int j)
+        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, HttpPostedFileBase uploadFile)
         {
             if (ModelState.IsValid)
             {          
                 product.ModifiedDate = System.DateTime.Now;
                 product.rowguid = Guid.NewGuid();
 
-                //Request["fileUpload"];
-
-                // No new image was chosen
-                if (product.ThumbNailPhoto == null)
+                // Manager uploaded an image
+                if (uploadFile != null && uploadFile.ContentLength > 0)
+                {
+                    product.ThumbNailPhoto = ConvertImage(uploadFile);
+                    product.ThumbnailPhotoFileName = uploadFile.FileName;
+                    db.Entry(product).State = EntityState.Modified;
+                }
+                // Manager didn't upload anything
+                else
                 {
                     // Since the photos always turn null on edit, we need to fetch the product's details 
                     var item = db.Products.SingleOrDefault(i => i.ProductID == product.ProductID);
-                    
+
                     // In case thumbnail photo was already null
-                    if(item.ThumbNailPhoto == null)
+                    if (item.ThumbNailPhoto == null)
                     {
                         // Get the byte array for no image
                         var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
@@ -201,17 +210,14 @@ namespace AdventureWorksMilestone2.Controllers
                     {
                         product.ThumbNailPhoto = item.ThumbNailPhoto;
                         product.ThumbnailPhotoFileName = item.ThumbnailPhotoFileName;
-                    }   
-                                  
+                    }
+
                     // We have to set the new values this way instead or else Visual Studios will get confused with "item" and "product" sharing the same ID
                     // It's weird but this works
-                    db.Entry(item).CurrentValues.SetValues(product);    
+                    db.Entry(item).CurrentValues.SetValues(product);
+
                 }
-                else
-                {
-                    db.Entry(product).State = EntityState.Modified;
-                }
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
