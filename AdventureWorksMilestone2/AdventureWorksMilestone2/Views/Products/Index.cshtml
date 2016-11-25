@@ -37,6 +37,8 @@
 
                 arr = document.getElementsByClassName("prod");
 
+                empty = true;
+
                 for (var i = 0; i < arr.length; i++) {
                     obj = document.getElementById(arr[i].id);
                     title = obj.children[titleLoc].firstChild;
@@ -47,6 +49,7 @@
                     a = false;
                     b = false;
                     c = false;
+
                     if (title.textContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
                         title.style.backgroundColor = "#18FFFF";
                         obj.removeAttribute("style");
@@ -74,6 +77,9 @@
                     if (a && b && c) {
                         obj.style.display = "none";
                     }
+                    else {
+                        empty = false;
+                    }
                 }
 
                 if (searchString == "") {
@@ -87,8 +93,11 @@
                     }
                 }
 
-                if ($.isEmptyObject(document.getElementById('productsDiv'))) {
+                if (empty && searchString != "") {
                     $('#noResults').css('visibility', 'visible');
+                }
+                else {
+                    $('#noResults').css('visibility', 'hidden');
                 }
             }
 

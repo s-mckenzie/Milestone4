@@ -279,3 +279,12 @@ input[type="checkbox"] {
 html {
     overflow: overlay;
 }
+
+#noResults {
+    text-align:center;
+}
+
+#noResults img {
+    height: 200px;
+    width: auto;
+}

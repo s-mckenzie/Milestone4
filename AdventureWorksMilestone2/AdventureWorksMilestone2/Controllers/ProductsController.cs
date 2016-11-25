@@ -29,6 +29,7 @@ namespace AdventureWorksMilestone2.Controllers
             return View(products);
         }
 
+        [HttpPost]
         public ActionResult Index(String category)
         {
             ViewBag.searchParam = category;
