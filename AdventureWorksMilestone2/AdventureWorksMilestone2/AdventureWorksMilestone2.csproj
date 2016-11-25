@@ -271,6 +271,7 @@
     <Content Include="Content\Images\GearImage.jpg" />
     <Content Include="Content\Images\green.jpg" />
     <Content Include="Content\Images\orange.jpg" />
+    <Content Include="Content\Images\sad.png" />
     <Content Include="Content\Images\star-full-L.png" />
     <Content Include="Content\Images\star-full-R.png" />
     <Content Include="Content\Images\star-not-L.png" />

@@ -26,6 +26,8 @@
                 });
             });
 
+            $('#noResults').css('visibility', 'hidden');
+
             function search(param, str) {
                 searchString = $('#searchBar').val();
 
@@ -84,9 +86,19 @@
                         obj.removeAttribute("style");
                     }
                 }
+
+                if ($.isEmptyObject(document.getElementById('productsDiv'))) {
+                    $('#noResults').css('visibility', 'visible');
+                }
             }
 
-            search("");
+            @if (ViewBag.searchParam != null) {
+                <text>search("@ViewBag.searchParam")</text>
+            }
+            else {
+                <text>search("");</text>
+            }
+    
 
             $('input.bikeFilters').change(function () {
                 checkHandler(true, "BIKES");
@@ -193,7 +205,7 @@
     <div class="col-sm-4 filter"><label for="helmetFilter">Helmet</label><input type="checkbox" id="helmetFilter" class="gearFilters f" /></div>-->
 </div>
 <hr />
-<div>
+<div id="productsDiv">
     @foreach (var item in Model) {
         count++;
         string url = "";
@@ -254,4 +266,8 @@
             }
         </div>
     }
+</div>
+<div id="noResults">
+    <h1>No Results Found</h1>
+    <image src="~/Content/images/sad.png"></image>
 </div>
