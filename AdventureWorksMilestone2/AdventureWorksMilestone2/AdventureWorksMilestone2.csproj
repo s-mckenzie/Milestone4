@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44313</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -279,12 +278,14 @@
     <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\amazing.png" />
     <Content Include="Content\Images\awc_logo.png" />
     <Content Include="Content\Images\BikeImage.jpg" />
     <Content Include="Content\Images\blue.jpg" />
     <Content Include="Content\Images\GearImage.jpg" />
     <Content Include="Content\Images\green.jpg" />
     <Content Include="Content\Images\orange.jpg" />
+    <Content Include="Content\Images\people.jpg" />
     <Content Include="Content\Images\sad.png" />
     <Content Include="Content\Images\star-full-L.png" />
     <Content Include="Content\Images\star-full-R.png" />
