@@ -59,6 +59,8 @@
 {
     @Html.AntiForgeryToken()
 
+    @Html.Hidden("Page", "Create")
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />

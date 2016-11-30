@@ -59,7 +59,9 @@
 @using (Html.BeginForm("Edit", "BikeManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
+    @Html.Hidden("Page", "Edit")
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />

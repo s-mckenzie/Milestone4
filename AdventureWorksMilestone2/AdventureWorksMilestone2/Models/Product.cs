@@ -29,13 +29,13 @@ namespace AdventureWorksMilestone2.Models
 
         [Required]
         [MaxLength(25)]
-        [Remote("CheckName", "BikeManager")]
+        [Remote("CheckName", "BikeManager", AdditionalFields = "Page")]
         public string Name { get; set; }
 
         [Required]
         [Display(Name = "Product Number")]
         [MaxLength(25)]
-        [Remote("CheckNumber", "BikeManager")]
+        [Remote("CheckNumber", "BikeManager", AdditionalFields = "Page")]
         public string ProductNumber { get; set; }
 
         [MaxLength(15)]
