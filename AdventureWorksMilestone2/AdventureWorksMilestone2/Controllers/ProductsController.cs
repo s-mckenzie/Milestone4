@@ -19,8 +19,6 @@ namespace AdventureWorksMilestone2.Controllers
         public ActionResult Index()
         {
             ViewBag.Ratings = from x in db.Reviews select x;
-            IEnumerable<Review> Ratings = ViewBag.Ratings;
-            Debug.WriteLine(Ratings.First().Rating);
 
             var cats = from x in db.ProductCategories where x.ParentProductCategoryID > 1 select x.Name;
 

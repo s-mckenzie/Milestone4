@@ -90,42 +90,43 @@
 </div>
 <p>
     <button class="btn"><a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br /></button>
-    @foreach(var r in reviews)
-    {
-        @Html.Raw("<div class='review'>")
-        @Html.Raw("<div class='review_U'>")
-        @Html.Raw(r.Name)
-        @Html.Raw("</div>")
-        @Html.Raw("<div class='review_R'>")
-        for (decimal x = (decimal) 0.5; x <= 5; x = x + ((decimal) 0.5))
+    <div class="col-lg-6">
+        @foreach(var r in reviews)
         {
-            String full;
-            String side;
+            @Html.Raw("<div class='review'>")
+            @Html.Raw("<div class='review_U'>")
+            @Html.Raw(r.Name)
+            @Html.Raw("</div>")
+            @Html.Raw("<div class='review_R'>")
+            for (decimal x = (decimal) 0.5; x <= 5; x = x + ((decimal) 0.5))
+            {
+                String full;
+                String side;
 
-            if(  x <= r.Rating)
-            {
-                full = "full";
-            }else
-            {
-                full = "not";
+                if(  x <= r.Rating)
+                {
+                    full = "full";
+                }else
+                {
+                    full = "not";
+                }
+                if (((double) x / 0.5)%2 == 0)
+                {
+                    side = "R";
+                }else
+                {
+                    side = "L";
+                }
+                @Html.Raw("<img src='../../Content/Images/star-" + full + "-" + side + ".png' class='star' />")
             }
-            if (((double) x / 0.5)%2 == 0)
-            {
-                side = "R";
-            }else
-            {
-                side = "L";
-            }
-            @Html.Raw("<img src='../../Content/Images/star-" + full + "-" + side + ".png' class='star' />")
+            @Html.Raw("<p class='review_M'>")
+            @Html.Raw(r.Review1)
+            @Html.Raw("</div>")
+
+            @Html.Raw("</div>")
         }
-        @Html.Raw("<p class='review_M'>")
-        @Html.Raw(r.Review1)
-        @Html.Raw("</div>")
-
-        @Html.Raw("</div>")
-    }
+    </div>
+    <div class="fb-comments col-lg-6" data-href="http://localhost:29621/Products/Details?id=@ViewBag.Id" data-numposts="5"></div>
     <br />
     <button class="btn">@Html.ActionLink("Back to List", "Index")</button>
 </p>
-
-<div class="fb-comments" data-href="http://localhost:29621/Products/Details?id=@ViewBag.Id" data-numposts="5"></div>
