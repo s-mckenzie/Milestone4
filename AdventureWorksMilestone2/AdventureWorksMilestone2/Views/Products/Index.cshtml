@@ -26,6 +26,8 @@
                 });
             });
 
+            $('#noResults').css('visibility', 'hidden');
+
             function search(param, str) {
                 searchString = $('#searchBar').val();
 
@@ -34,6 +36,8 @@
                 }
 
                 arr = document.getElementsByClassName("prod");
+
+                empty = true;
 
                 for (var i = 0; i < arr.length; i++) {
                     obj = document.getElementById(arr[i].id);
@@ -45,6 +49,7 @@
                     a = false;
                     b = false;
                     c = false;
+
                     if (title.textContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
                         title.style.backgroundColor = "#18FFFF";
                         obj.removeAttribute("style");
@@ -72,6 +77,9 @@
                     if (a && b && c) {
                         obj.style.display = "none";
                     }
+                    else {
+                        empty = false;
+                    }
                 }
 
                 if (searchString == "") {
@@ -84,9 +92,22 @@
                         obj.removeAttribute("style");
                     }
                 }
+
+                if (empty && searchString != "") {
+                    $('#noResults').css('visibility', 'visible');
+                }
+                else {
+                    $('#noResults').css('visibility', 'hidden');
+                }
             }
 
-            search("");
+            @if (ViewBag.searchParam != null) {
+                <text>search("@ViewBag.searchParam")</text>
+            }
+            else {
+                <text>search("");</text>
+            }
+    
 
             $('input.bikeFilters').change(function () {
                 checkHandler(true, "BIKES");
@@ -130,12 +151,33 @@
                     if (!elems[0].checked) {
                         checkHandler(false, null);
                     }
-                    $('input.gearFilters').prop("disabled", false);
+
+                    if (!document.getElementById('bikeFilter').checked) {
+                        $('input.gearFilters').prop("disabled", false);
+                    }
                     break;
                 }
             });
 
-            $('#clothingFilter').change(function () { checkHandler(this.checked, "NOTHING");});
+            @foreach (var s in ViewBag.Categories) {
+                String idStr = s.ToLower() + "Filter";
+                idStr = idStr.Replace(' ', '_');
+                String filter = s.ToUpper();
+                filter = filter.Substring(0, filter.Length - 1);
+
+                <text>
+                    $('#@idStr').change(function () {
+                        checkHandler(this.checked, "@filter");
+                        if (this.checked) {
+                            $('input.f').prop("disabled", true);
+                            $('#@idStr').prop("disabled", false);
+                        }
+                        else {
+                            $('input.f').prop("disabled", false);
+                        }
+                    });
+                </text>
+            }
 
             $('#framesFilter').change(function () { checkHandler(this.checked, "FRAME");});
 
@@ -153,15 +195,26 @@
 
 <h1>Products</h1> <input type="text" id="searchBar" placeholder="Search Products"/>
 <div id="filters">
-    <div class="col-sm-4 filter"><label for="bikeFilter">Bikes</label><input type="checkbox" id="bikeFilter" class="bikeFilters f" /></div>
-    <div class="col-sm-4 filter"><label for="mountainBikeFilter">Mountain Bikes</label><input type="checkbox" id="mountainBikeFilter" class="bikeFilters f" /></div>
-    <div class="col-sm-4 filter"><label for="touringBikeFilter">Touring Bikes</label><input type="checkbox" id="touringBikeFilter" class="bikeFilters f" /></div>
-    <div class="col-sm-4 filter"><label for="roadBikeFilter">Road Bikes</label><input type="checkbox" id="roadBikeFilter" class="bikeFilters f" /></div>
-    <div class="col-sm-4 filter"><label for="clothingFilter">Clothing</label><input type="checkbox" id="clothingFilter" class="gearFilters f" /></div>
-    <div class="col-sm-4 filter"><label for="framesFilter">Frames</label><input type="checkbox" id="framesFilter" class="gearFilters f" /></div>
+    <div class="col-sm-1 filter"><label for="bikeFilter">Bikes</label><input type="checkbox" id="bikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-1 filter"><label for="mountainBikeFilter">Mountain Bikes</label><input type="checkbox" id="mountainBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-1 filter"><label for="touringBikeFilter">Touring Bikes</label><input type="checkbox" id="touringBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-1 filter"><label for="roadBikeFilter">Road Bikes</label><input type="checkbox" id="roadBikeFilter" class="bikeFilters f" /></div>
+
+    @foreach (var s in ViewBag.Categories) {
+        String idStr = s.ToLower() + "Filter";
+        idStr = idStr.Replace(' ', '_');
+        String label = s;
+        String classStr = "gearFilters";
+
+        <div class="col-sm-1 filter"><label for="@idStr">@label</label><input type="checkbox" id="@idStr" class="@classStr f" /></div>
+    }
+
+    <!--<div class="col-sm-4 filter"><label for="framesFilter">Frames</label><input type="checkbox" id="framesFilter" class="gearFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="capsFilter">Caps</label><input type="checkbox" id="capsFilter" class="gearFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="helmetFilter">Helmet</label><input type="checkbox" id="helmetFilter" class="gearFilters f" /></div>-->
 </div>
 <hr />
-<div>
+<div id="productsDiv">
     @foreach (var item in Model) {
         count++;
         string url = "";
@@ -210,7 +263,6 @@
             <h4><label><strong>List Price:</strong></label>     $@Html.DisplayFor(modelItem => item.ListPrice)          <br /></h4>
             <h4><label><strong>Category:</strong></label>       @Html.DisplayFor(modelItem => item.ProductCategory.Name)<br /></h4>
             <h4><label><strong>Product Number:</strong></label> @Html.DisplayFor(modelItem => item.ProductNumber)       <br /></h4>
-            
             @Html.Raw(ratingDisplay)
 
             @if (item.Color != null || item.Size != null || weight != -1)
@@ -240,4 +292,8 @@
             }
         </div>
     }
+</div>
+<div id="noResults">
+    <h1>No Results Found</h1>
+    <image src="~/Content/images/sad.png"></image>
 </div>

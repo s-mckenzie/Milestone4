@@ -294,4 +294,12 @@ html {
     left: 35%;
     height: 25px;
     z-index: 19;
+
+#noResults {
+    text-align:center;
+}
+
+#noResults img {
+    height: 200px;
+    width: auto;
 }
