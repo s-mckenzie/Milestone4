@@ -100,6 +100,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.ThumbNailPhoto)
+        </dt>
+
+        <dd>
+            <img width="200px" src="data:image;base64,@System.Convert.ToBase64String(Model.ThumbNailPhoto)" />
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.ThumbnailPhotoFileName)
         </dt>
 
