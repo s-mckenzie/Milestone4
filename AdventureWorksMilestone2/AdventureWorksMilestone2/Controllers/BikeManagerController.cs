@@ -46,18 +46,33 @@ namespace AdventureWorksMilestone2.Controllers
 
         // Used to search for unique product names
         [Authorize(Roles = "Manager")]
-        public JsonResult CheckName(string name)
+        public JsonResult CheckName(string name, string page)
         {
-            var names = from x in db.Products where x.Name == name select x;
-            return ValidateItems(names, name);
+            if (page == "Create")
+            {
+                var names = from x in db.Products where x.Name == name select x;
+                return ValidateItems(names, name);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // Used to search for unique product numbers
         [Authorize(Roles = "Manager")]
-        public JsonResult CheckNumber(string productnumber)
+        public JsonResult CheckNumber(string productnumber, string page)
         {
-            var nums = from x in db.Products where x.ProductNumber == productnumber select x;
-            return ValidateItems(nums, productnumber);
+            if (page == "Create")
+            {
+                var nums = from x in db.Products where x.ProductNumber == productnumber select x;
+                return ValidateItems(nums, productnumber);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
         [Authorize(Roles = "Manager")]
@@ -94,7 +109,6 @@ namespace AdventureWorksMilestone2.Controllers
         }
 
 
-        // GET: BikeManager/Create
         [Authorize(Roles = "Manager")]
         public byte[] ConvertImage(HttpPostedFileBase file)
         {
