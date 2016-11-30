@@ -303,3 +303,8 @@ html {
     height: 200px;
     width: auto;
 }
+
+.fb-like {
+    position:fixed;
+    right:0;
+}
