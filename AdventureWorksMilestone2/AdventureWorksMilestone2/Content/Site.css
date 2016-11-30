@@ -8,7 +8,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 120px;
+    padding-top: 50px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -81,6 +81,7 @@ body {
 
 .thenav {
     float: right;
+    text-align:right;
 }
 
 .navbar-toggle {
@@ -178,11 +179,7 @@ h3 {
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 120px;
-}
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -284,4 +281,44 @@ html {
     width:50% !important;
     padding:0;
     margin:0;
+    margin:auto;
+}
+.header{
+    margin-top:0px;
+}
+.thenav > ul > li {
+    height:50px;
+    padding:0px;
+    margin:0px;
+    
+    margin:auto;
+}
+.thenav > ul > li >a {
+    height:50px;
+    padding:0px 10px 10px 10px;
+    text-align:center;
+    
+    opacity:1 !important;
+    border-radius:5px;
+}
+.thenav > ul > li >a:hover {
+    background:#333333 !important;
+    opacity:1 !important;
+}
+.logedinnav {
+    height: 50px;
+    padding: 0px 10px 10px 5px;
+    text-align: center;
+    opacity: 1 !important;
+    border-radius: 5px;
+    margin:auto;
+}
+.logedinnav > li > a{
+    color:#333333;
+}
+.logedinnav:hover{
+    color:#333333;
+}
+nav-bar-nav{
+    width:50%;
 }

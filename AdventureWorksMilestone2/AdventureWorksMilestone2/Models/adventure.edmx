@@ -117,7 +117,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" />
           <Property Name="Rating" Type="decimal" Precision="2" Scale="1" Nullable="false" />
@@ -195,11 +195,13 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductAndDescription'
 warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductAndDescription2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vProductAndDescription2">
           <Key>
+            <PropertyRef Name="Name" />
             <PropertyRef Name="ProductModel" />
             <PropertyRef Name="Culture" />
             <PropertyRef Name="Description" />
           </Key>
           <Property Name="ProductModelID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ProductModel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Culture" Type="nchar" MaxLength="6" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="400" Nullable="false" />
@@ -429,6 +431,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
           <EntitySet Name="vProductAndDescription2" EntityType="Self.vProductAndDescription2" store:Type="Views" store:Schema="SalesLT">
             <DefiningQuery>SELECT 
     [vProductAndDescription2].[ProductModelID] AS [ProductModelID], 
+    [vProductAndDescription2].[Name] AS [Name], 
     [vProductAndDescription2].[ProductModel] AS [ProductModel], 
     [vProductAndDescription2].[Culture] AS [Culture], 
     [vProductAndDescription2].[Description] AS [Description], 
@@ -653,7 +656,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Rating" Type="Decimal" Precision="2" Scale="1" Nullable="false" />
@@ -732,11 +735,13 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
         </EntityType>
         <EntityType Name="vProductAndDescription2">
           <Key>
+            <PropertyRef Name="Name" />
             <PropertyRef Name="ProductModel" />
             <PropertyRef Name="Culture" />
             <PropertyRef Name="Description" />
           </Key>
           <Property Name="ProductModelID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Culture" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1199,6 +1204,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
             <EntityTypeMapping TypeName="AdventureWorks2012Model.vProductAndDescription2">
               <MappingFragment StoreEntitySet="vProductAndDescription2">
                 <ScalarProperty Name="ProductModelID" ColumnName="ProductModelID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProductModel" ColumnName="ProductModel" />
                 <ScalarProperty Name="Culture" ColumnName="Culture" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
