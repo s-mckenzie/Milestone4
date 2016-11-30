@@ -25,11 +25,13 @@
                     // AJAX GET -> type, url, data (category id), success
                     $.ajax({
                         type: "GET",                // Post type
-                        url: "GetBikeModel/",       // Function
+                        url: "/BikeManager/GetBikeModel/",       // Function
                         dataType: 'json',           // Using json, jquery will make parse for  you
                         data: { id: id },           // Data to send (GetBikeModel's int? id takes var id(see above))
                         success: function (data) {
                             var options = "";
+
+                            //alert("1");
 
                             // Loop through every model
                             for (var i = 0; i < data.length; i++) {
@@ -40,8 +42,9 @@
                             $("#ProductModelID").html(options.toString());
                             //alert(JSON.stringify(data));
                         }
-                    })
+                    });
 
+                    //alert("2");
 
                     $("#ProductModelID").attr("disabled", false);        // Enable Product Model selection
                 }
@@ -53,10 +56,12 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "BikeManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
+    @Html.Hidden("Page", "Edit")
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
@@ -162,12 +167,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ThumbNailPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <!--<input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
-                    Will need to work on this after byte array gets replaced-->      
-                @Html.TextBox("fileUpload", "", new { @class = "text-danger", @type = "file", @accept = "image/*" }) 
+                <input type="file" name="uploadFile" id="uploadFile" accept="image/*" class="form-control">
                 @Html.ValidationMessageFor(model => model.ThumbNailPhoto, "", new { @class = "text-danger" })
             </div>
-        </div>        
+        </div>       
 
         <div class="form-group">
             @Html.LabelFor(model => model.ThumbnailPhotoFileName, htmlAttributes: new { @class = "control-label col-md-2" })
