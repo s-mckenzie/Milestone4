@@ -60,7 +60,7 @@ namespace AdventureWorksMilestone2.Controllers
                 }
                 db.Reviews.Add(review);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Products", new { id = review.ProductID });
             }
 
             ViewBag.ProductID = review.ProductID;

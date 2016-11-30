@@ -280,6 +280,21 @@ html {
     overflow: overlay;
 }
 
+.avgReviewStars{
+    position: absolute;
+    width: 125px;
+    bottom: 11%;
+    left: 35%;
+    z-index:20;
+}
+
+.avgReviewScore{
+    position: absolute;
+    bottom: 11%;
+    left: 35%;
+    height: 25px;
+    z-index: 19;
+
 #noResults {
     text-align:center;
 }
