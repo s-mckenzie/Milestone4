@@ -2,14 +2,14 @@
 
 @{
     ViewBag.Title = "Create";
+
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
-{
+<form id="ReviewForm" method="post" action="/Reviews/Create?pid=@ViewBag.ProductId">
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Review</h4>
         <hr />
@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Review1, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <textarea name="Review1" maxlength="2000">@ViewBag.Message</textarea>
+                <textarea id="ReviewMessage" name="Review1" maxlength="2000">@ViewBag.Message</textarea>
                 @Html.ValidationMessageFor(model => model.Review1, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,9 +44,11 @@
             </div>
         </div>
     </div>
-}
+</form>
 <script>
     var lock = 0;
+    var CUSSES = /(fuck(er)?|bitch|cunt|shit|ass(hole)?|nigger|cock|fag(got)?|whore|slut|pussy|dick|kike|chink|criss|tab(a|e)rna(k|c)|osti|bitte|sacrament|(c|k)(a|â)lisse|putte|tapette)/i;
+    var CURSEFILTER = new Array('*', '#', '$', '%', '&', '!', '?');
 
     $(document).ready(function () {
         if (document.getElementById("Rating").value == 1) {
@@ -257,4 +259,31 @@
         }
         star5R();
     })
+
+    $("#ReviewForm").submit(function (e) {
+        var message = document.getElementById("ReviewMessage").value;
+        var parts = message.split(/( |\r|\n)/)
+        console.log(parts);
+        var result = "";
+        parts.forEach(function (word) {
+            var parsed = word;
+
+            var swear = word.match(CUSSES);
+            if (swear) {
+                var parts = word.split(swear[0]);
+
+                var censor = parts[0];
+                for (var x = 0; x < swear[0].length; x++) {
+                    var rand = (Math.random() * 7);
+                    console.log(rand | 0)
+                    censor = censor + CURSEFILTER[rand | 0];
+                }
+                censor += parts[1];
+                parsed = censor;
+            }
+
+            result = result + parsed;
+        })
+        document.getElementById("ReviewMessage").value = result;
+    });
 </script>
