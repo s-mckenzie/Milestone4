@@ -16,7 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Anonymous" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input id="Rating" type="hidden" name="Rating" value=@ViewBag.Rating />
+                <input id="Rating" type="hidden" name="Rating" value="@ViewBag.Rating" />
                 <img id="1starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="1starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="2starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="2starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="3starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="3starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="4starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="4starR" src="~/Content/Images/star-not-R.png" class="star" /><img id="5starL" src="~/Content/Images/star-not-L.png" class="star" /><img id="5starR" src="~/Content/Images/star-not-R.png" class="star" />
                 @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
             </div>
@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Review1, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <textarea name="Review1">@ViewBag.Message</textarea>
+                <textarea name="Review1" maxlength="2000">@ViewBag.Message</textarea>
                 @Html.ValidationMessageFor(model => model.Review1, "", new { @class = "text-danger" })
             </div>
         </div>

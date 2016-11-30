@@ -3,34 +3,60 @@
 @{
     ViewBag.Title = "Index";
 
-    double gramToKilo   = 0.001;
+    //double gramToKilo   = 0.001;
     double gramToPounds = 0.00220462;
     int count = 0;
+
+    IEnumerable<AdventureWorksMilestone2.Models.Review> Ratings = ViewBag.Ratings;
 }
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
             var searchString;
-            $('#searchBar').keyup(search);
+            var labelPadding = 16;
+            var titleLoc = 0;
+            var idLoc = 6;
+            var categLoc = 5;
+            $('#searchBar').keyup(function () {
+                search(this, null);
+                $('input.f').each(function (key, value) {
+                    value.checked = false;
+                    value.disabled = false;
+                });
+            });
 
-            function search() {
+            $('#noResults').css('visibility', 'hidden');
+
+            function search(param, str) {
                 searchString = $('#searchBar').val();
+
+                if (str != null) {
+                    searchString = str;
+                }
 
                 arr = document.getElementsByClassName("prod");
 
+                empty = true;
+
                 for (var i = 0; i < arr.length; i++) {
                     obj = document.getElementById(arr[i].id);
-                    title = obj.children[0].firstChild;
-                    id = obj.children[6];
-                    idString = id.textContent.substring(15, id.textContent.length);
+                    title = obj.children[titleLoc].firstChild;
+                    id = obj.children[idLoc];
+                    idString = id.textContent.substring(labelPadding, id.textContent.length);
+                    category = obj.children[categLoc];
+                    categoryString = category.textContent.substring(labelPadding, category.length);
+                    a = false;
+                    b = false;
+                    c = false;
+
                     if (title.textContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
                         title.style.backgroundColor = "#18FFFF";
                         obj.removeAttribute("style");
                     }
                     else {
                         title.style.backgroundColor = "";
-                        obj.style.display = "none";
+                        a = true;
                     }
                     if (idString.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
                         id.style.backgroundColor = "#18FFFF";
@@ -38,9 +64,22 @@
                     }
                     else {
                         id.style.backgroundColor = "";
+                        b = true;
+                    }
+                    if (categoryString.toLowerCase().indexOf(searchString.toLowerCase()) >= 0 && searchString != "") {
+                        category.style.backgroundColor = "#18FFFF";
+                        obj.removeAttribute("style");
+                    }
+                    else {
+                        category.style.backgroundColor = "";
+                        c = true;
+                    }
+                    if (a && b && c) {
                         obj.style.display = "none";
                     }
-
+                    else {
+                        empty = false;
+                    }
                 }
 
                 if (searchString == "") {
@@ -53,26 +92,139 @@
                         obj.removeAttribute("style");
                     }
                 }
+
+                if (empty && searchString != "") {
+                    $('#noResults').css('visibility', 'visible');
+                }
+                else {
+                    $('#noResults').css('visibility', 'hidden');
+                }
             }
 
-            search();
+            @if (ViewBag.searchParam != null) {
+                <text>search("@ViewBag.searchParam")</text>
+            }
+            else {
+                <text>search("");</text>
+            }
+    
+
+            $('input.bikeFilters').change(function () {
+                checkHandler(true, "BIKES");
+
+                $('input.gearFilters').prop("disabled", true);
+
+                var elems = $('input.bikeFilters');
+
+                while (true) {
+                    if (elems[1].checked) {
+                        checkHandler(this, "MOUNTAIN BIKES");
+                        elems[2].disabled = true;
+                        elems[3].disabled = true;
+                        break;
+                    }
+                    else {
+                        elems[2].disabled = false;
+                        elems[3].disabled = false;
+                    }
+                    if (elems[2].checked) {
+                        checkHandler(this, "TOURING BIKES");
+                        elems[1].disabled = true;
+                        elems[3].disabled = true;
+                        break;
+                    }
+                    else {
+                        elems[1].disabled = false;
+                        elems[3].disabled = false;
+                    }
+                    if (elems[3].checked) {
+                        checkHandler(this, "ROAD BIKES");
+                        elems[1].disabled = true;
+                        elems[2].disabled = true;
+                        break;
+                    }
+                    else {
+                        elems[1].disabled = false;
+                        elems[2].disabled = false;
+                    }
+
+                    if (!elems[0].checked) {
+                        checkHandler(false, null);
+                    }
+
+                    if (!document.getElementById('bikeFilter').checked) {
+                        $('input.gearFilters').prop("disabled", false);
+                    }
+                    break;
+                }
+            });
+
+            @foreach (var s in ViewBag.Categories) {
+                String idStr = s.ToLower() + "Filter";
+                idStr = idStr.Replace(' ', '_');
+                String filter = s.ToUpper();
+                filter = filter.Substring(0, filter.Length - 1);
+
+                <text>
+                    $('#@idStr').change(function () {
+                        checkHandler(this.checked, "@filter");
+                        if (this.checked) {
+                            $('input.f').prop("disabled", true);
+                            $('#@idStr').prop("disabled", false);
+                        }
+                        else {
+                            $('input.f').prop("disabled", false);
+                        }
+                    });
+                </text>
+            }
+
+            $('#framesFilter').change(function () { checkHandler(this.checked, "FRAME");});
+
+            function checkHandler(checked, str) {
+                if (checked) {
+                    search(null, str);
+                }
+                else {
+                    search(null, null);
+                }
+            }
         });
     </script>
 </head>
 
 <h1>Products</h1> <input type="text" id="searchBar" placeholder="Search Products"/>
+<div id="filters">
+    <div class="col-sm-1 filter"><label for="bikeFilter">Bikes</label><input type="checkbox" id="bikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-1 filter"><label for="mountainBikeFilter">Mountain Bikes</label><input type="checkbox" id="mountainBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-1 filter"><label for="touringBikeFilter">Touring Bikes</label><input type="checkbox" id="touringBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-1 filter"><label for="roadBikeFilter">Road Bikes</label><input type="checkbox" id="roadBikeFilter" class="bikeFilters f" /></div>
+
+    @foreach (var s in ViewBag.Categories) {
+        String idStr = s.ToLower() + "Filter";
+        idStr = idStr.Replace(' ', '_');
+        String label = s;
+        String classStr = "gearFilters";
+
+        <div class="col-sm-1 filter"><label for="@idStr">@label</label><input type="checkbox" id="@idStr" class="@classStr f" /></div>
+    }
+
+    <!--<div class="col-sm-4 filter"><label for="framesFilter">Frames</label><input type="checkbox" id="framesFilter" class="gearFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="capsFilter">Caps</label><input type="checkbox" id="capsFilter" class="gearFilters f" /></div>
+    <div class="col-sm-4 filter"><label for="helmetFilter">Helmet</label><input type="checkbox" id="helmetFilter" class="gearFilters f" /></div>-->
+</div>
 <hr />
-<div>
+<div id="productsDiv">
     @foreach (var item in Model) {
         count++;
         string url = "";
         double weight = -1;
         if (item.Weight != null) {
-            //weight = (double)item.Weight * gramToPounds;
-            weight = (double)item.Weight * gramToKilo;
+            weight = (double)item.Weight * gramToPounds;
+            //weight = (double)item.Weight * gramToKilo;
         }
-        //string w = weight.ToString("F2") + " lbs";
-        string w = weight.ToString("F2") + " kg";
+        string w = weight.ToString("F2") + " lbs";
+        //string w = weight.ToString("F2") + " kg";
 
         if (item.ProductCategoryID >= 8)
         {
@@ -83,6 +235,26 @@
             url += "Bike/Details/" + item.ProductModelID;
         }
 
+        decimal avgRating = 0;
+        var prodRatings = from x in Ratings where x.ProductID == item.ProductID select x;
+        int c = 0;
+        foreach (var r in prodRatings)
+        {
+            System.Diagnostics.Debug.WriteLine(r.Rating);
+            c++;
+            avgRating += r.Rating;
+        }
+
+        String ratingDisplay = "";
+        if (avgRating > 0)
+        {
+            avgRating = (avgRating / c);
+            ratingDisplay = "<br><img src='../Content/Images/stars.png' class='avgReviewStars'><img src = '../Content/Images/stars-back.png' class='avgReviewScore' width='"+ ((avgRating / 5) * 125) +"'>";
+        }else
+        {
+            ratingDisplay = "No Reviews Found";
+        }
+
         <div id=@count class="col-md-4 prod">
             <a href="~/@url"><h3>@Html.DisplayFor(modelItem => item.Name)</h3></a>
             <a href="~/Products/Details?id=@item.ProductID"><img src="data:image;base64,@System.Convert.ToBase64String(item.ThumbNailPhoto)" height="100" /></a>
@@ -91,6 +263,7 @@
             <h4><label><strong>List Price:</strong></label>     $@Html.DisplayFor(modelItem => item.ListPrice)          <br /></h4>
             <h4><label><strong>Category:</strong></label>       @Html.DisplayFor(modelItem => item.ProductCategory.Name)<br /></h4>
             <h4><label><strong>Product Number:</strong></label> @Html.DisplayFor(modelItem => item.ProductNumber)       <br /></h4>
+            @Html.Raw(ratingDisplay)
 
             @if (item.Color != null || item.Size != null || weight != -1)
             {
@@ -120,7 +293,7 @@
         </div>
     }
 </div>
-
-<!--<div id="sideBar">
-
-</div>-->
+<div id="noResults">
+    <h1>No Results Found</h1>
+    <image src="~/Content/images/sad.png"></image>
+</div>

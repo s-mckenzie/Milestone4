@@ -112,7 +112,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductID" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="30" />
     <Property Name="Rating" Type="decimal" Precision="2" Scale="1" Nullable="false" />
@@ -235,7 +235,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Reviews__Product__43D61337">
+  <Association Name="FK__Reviews__Product__56E8E7AB">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
     <ReferentialConstraint>
@@ -459,7 +459,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     [vProductModelCatalogDescription].[ModifiedDate] AS [ModifiedDate]
     FROM [SalesLT].[vProductModelCatalogDescription] AS [vProductModelCatalogDescription]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK__Reviews__Product__43D61337" Association="Self.FK__Reviews__Product__43D61337">
+    <AssociationSet Name="FK__Reviews__Product__56E8E7AB" Association="Self.FK__Reviews__Product__56E8E7AB">
       <End Role="Product" EntitySet="Product" />
       <End Role="Reviews" EntitySet="Reviews" />
     </AssociationSet>

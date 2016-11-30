@@ -1,8 +1,19 @@
 ﻿@model AdventureWorksMilestone2.Models.Product
 
 @{
-    ViewBag.Title = "Details";
+        ViewBag.Title = "Details";
+        IEnumerable<AdventureWorksMilestone2.Models.Review> reviews = ViewBag.reviews;
+
 }
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <h2>Details</h2>
 
@@ -78,5 +89,44 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn"><a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br /></button>
+    <div class="col-lg-6">
+        @foreach(var r in reviews)
+        {
+            @Html.Raw("<div class='review'>")
+            @Html.Raw("<div class='review_U'>")
+            @Html.Raw(r.Name)
+            @Html.Raw("</div>")
+            @Html.Raw("<div class='review_R'>")
+            for (decimal x = (decimal) 0.5; x <= 5; x = x + ((decimal) 0.5))
+            {
+                String full;
+                String side;
+
+                if(  x <= r.Rating)
+                {
+                    full = "full";
+                }else
+                {
+                    full = "not";
+                }
+                if (((double) x / 0.5)%2 == 0)
+                {
+                    side = "R";
+                }else
+                {
+                    side = "L";
+                }
+                @Html.Raw("<img src='../../Content/Images/star-" + full + "-" + side + ".png' class='star' />")
+            }
+            @Html.Raw("<p class='review_M'>")
+            @Html.Raw(r.Review1)
+            @Html.Raw("</div>")
+
+            @Html.Raw("</div>")
+        }
+    </div>
+    <div class="fb-comments col-lg-6" data-href="http://localhost:29621/Products/Details?id=@ViewBag.Id" data-numposts="5"></div>
+    <br />
+    <button class="btn">@Html.ActionLink("Back to List", "Index")</button>
 </p>
