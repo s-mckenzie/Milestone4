@@ -217,7 +217,7 @@ namespace AdventureWorksMilestone2.Controllers
                         ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
                                         + "before you can log in.";
 
-                        return View("Account Created");
+                        return View("Info");
                     }  
                     //return RedirectToAction("Index", "Home");
                 }
