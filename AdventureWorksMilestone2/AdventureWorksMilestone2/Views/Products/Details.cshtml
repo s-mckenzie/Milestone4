@@ -87,6 +87,7 @@
             <img src="data:image;base64,@System.Convert.ToBase64String(Model.ThumbNailPhoto)" />
         </dd>
     </dl>
+    <div style="position: fixed; left: 16%; top: 20%;" class="fb-like" data-href="http://localhost:29621/Products/Details?id=@ViewBag.Id" data-layout="box_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
 </div>
 <p>
     <button class="btn"><a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br /></button>
