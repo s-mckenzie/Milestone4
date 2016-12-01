@@ -8,7 +8,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 120px;
+    padding-top: 50px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -81,6 +81,7 @@ body {
 
 .thenav {
     float: right;
+    text-align:right;
 }
 
 .navbar-toggle {
@@ -126,7 +127,7 @@ hr {
 .prod {
     height: 24.5em;
     border: solid 2px black;
-    overflow-y: visible;
+    overflow-y: scroll;
     border-radius: 10px;
 }
 
@@ -146,13 +147,13 @@ details p {
     font-size: 11pt;
     color: black;
 }
-
 h3 {
     color: #0D47A1;
     text-decoration: underline;
 }
 
 #searchBar {
+
     position: relative;
     border: 2px solid #0277BD;
     padding: 3px 15px;
@@ -178,11 +179,7 @@ h3 {
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 120px;
-}
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -210,7 +207,6 @@ textarea {
 }
 
 .jumbotron img{
-    width: 100%;
     border:solid 1px;
     border-radius:5px;
 }
@@ -254,31 +250,94 @@ body {
 .review_M{
     border: 2px solid;
 }
-
 #filters {
     background-color: dodgerblue;
-    height: 50px;
-    width: 800px;
+    height: auto;
+    width: 100%;
     float: right;
     border-radius: 5px;
     position: relative;
     bottom: 7px;
+    margin-bottom:10px;
+    padding-bottom:10px;
 }
+.filter{
+    height:30px;
+    text-align:center;
 
+}
+.filter  input{
+    
+}
 .filter label {
     color: white;
-    position:relative;
     bottom: 2px;
-}
 
+    vertical-align:middle;
+}
+.bikefilter{
+    margin-bottom:0px;
+}
 input[type="checkbox"] {
     margin-top: 18px;
     margin-left: 7px;
 }
 
-html {
-    overflow: overlay;
+
+.mySlides{
+    height:200px;
+    width:50% !important;
+    padding:0;
+    margin:0;
+    margin:auto;
 }
+.header{
+    margin-top:0px;
+}
+.thenav > ul > li {
+    height:50px;
+    padding:0px;
+    margin:0px;
+    
+    margin:auto;
+}
+.thenav > ul > li >a {
+    height:50px;
+    padding:0px 10px 10px 10px;
+    text-align:center;
+    
+    opacity:1 !important;
+    border-radius:5px;
+}
+.thenav > ul > li >a:hover {
+    background:#333333 !important;
+    opacity:1 !important;
+}
+.logedinnav {
+    height: 100%;
+    float:left;
+    padding: 0px 10px 10px 5px;
+    text-align: center;
+    opacity: 1 !important;
+    background:white;
+    border-radius: 5px;
+    margin:auto;
+}
+.logedinnav > li > a{
+    color:#333333;
+}
+.logedinnav:hover{
+    color:#333333;
+}
+nav-bar-nav{
+    width:50%;
+}
+.toggle2{
+    float:left;
+    width:100%;
+    display:block;
+    border:1px black solid;
+=======
 
 .avgReviewStars{
     position: absolute;

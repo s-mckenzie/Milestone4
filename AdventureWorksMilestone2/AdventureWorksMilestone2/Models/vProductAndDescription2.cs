@@ -15,6 +15,7 @@ namespace AdventureWorksMilestone2.Models
     public partial class vProductAndDescription2
     {
         public Nullable<int> ProductModelID { get; set; }
+        public string Name { get; set; }
         public string ProductModel { get; set; }
         public string Culture { get; set; }
         public string Description { get; set; }

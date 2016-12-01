@@ -192,6 +192,7 @@
       <EntityTypeMapping TypeName="AdventureWorks2012Model.vProductAndDescription2">
         <MappingFragment StoreEntitySet="vProductAndDescription2">
           <ScalarProperty Name="ProductModelID" ColumnName="ProductModelID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ProductModel" ColumnName="ProductModel" />
           <ScalarProperty Name="Culture" ColumnName="Culture" />
           <ScalarProperty Name="Description" ColumnName="Description" />
