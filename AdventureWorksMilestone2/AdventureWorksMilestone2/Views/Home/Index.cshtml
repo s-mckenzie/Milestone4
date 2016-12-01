@@ -38,11 +38,14 @@
         for (i = 0; i < x.length; i++) {
             x[i].style.display = "none";
         }
-        var rand = Math.floor(Math.random() * (x.length )) ;
+        var rand = Math.floor(Math.random() * (x.length));
+        console.log(rand);
         x[rand].style.display = "block";
-        rand = Math.floor(Math.random() * (x.length )) ;
+        rand = Math.floor(Math.random() * (x.length));
+
+        console.log(rand);
         x[rand].style.display = "block";
-        setTimeout(carousel, 750); // Change image every 2 seconds
+        setTimeout(carousel, 2000); // Change image every 2 seconds
     }
 
 </script>

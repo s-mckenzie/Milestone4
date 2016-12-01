@@ -127,7 +127,7 @@ hr {
 .prod {
     height: 24.5em;
     border: solid 2px black;
-    overflow-y: visible;
+    overflow-y: scroll;
     border-radius: 10px;
 }
 
@@ -147,13 +147,13 @@ details p {
     font-size: 11pt;
     color: black;
 }
-
 h3 {
     color: #0D47A1;
     text-decoration: underline;
 }
 
 #searchBar {
+
     position: relative;
     border: 2px solid #0277BD;
     padding: 3px 15px;
@@ -250,31 +250,39 @@ body {
 .review_M{
     border: 2px solid;
 }
-
 #filters {
     background-color: dodgerblue;
-    height: 50px;
-    width: 800px;
+    height: auto;
+    width: 100%;
     float: right;
     border-radius: 5px;
     position: relative;
     bottom: 7px;
+    margin-bottom:10px;
+    padding-bottom:10px;
 }
+.filter{
+    height:30px;
+    text-align:center;
 
+}
+.filter  input{
+    
+}
 .filter label {
     color: white;
-    position:relative;
     bottom: 2px;
-}
 
+    vertical-align:middle;
+}
+.bikefilter{
+    margin-bottom:0px;
+}
 input[type="checkbox"] {
     margin-top: 18px;
     margin-left: 7px;
 }
 
-html {
-    overflow: overlay;
-}
 
 .mySlides{
     height:200px;
@@ -306,10 +314,12 @@ html {
     opacity:1 !important;
 }
 .logedinnav {
-    height: 50px;
+    height: 100%;
+    float:left;
     padding: 0px 10px 10px 5px;
     text-align: center;
     opacity: 1 !important;
+    background:white;
     border-radius: 5px;
     margin:auto;
 }
@@ -321,4 +331,10 @@ html {
 }
 nav-bar-nav{
     width:50%;
+}
+.toggle2{
+    float:left;
+    width:100%;
+    display:block;
+    border:1px black solid;
 }

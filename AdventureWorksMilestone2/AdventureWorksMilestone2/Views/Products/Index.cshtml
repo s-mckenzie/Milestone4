@@ -185,26 +185,29 @@
 </head>
 
 <h1>Products</h1> <input type="text" id="searchBar" placeholder="Search Products"/>
-<div id="filters">
-    <div class="col-sm-1 filter"><label for="bikeFilter">Bikes</label><input type="checkbox" id="bikeFilter" class="bikeFilters f" /></div>
-    <div class="col-sm-1 filter"><label for="mountainBikeFilter">Mountain Bikes</label><input type="checkbox" id="mountainBikeFilter" class="bikeFilters f" /></div>
-    <div class="col-sm-1 filter"><label for="touringBikeFilter">Touring Bikes</label><input type="checkbox" id="touringBikeFilter" class="bikeFilters f" /></div>
-    <div class="col-sm-1 filter"><label for="roadBikeFilter">Road Bikes</label><input type="checkbox" id="roadBikeFilter" class="bikeFilters f" /></div>
 
-    @foreach (var s in ViewBag.Categories) {
+<hr />
+<button type="button" id="searchbutt" class="toggle2 navbar-toggle " data-toggle="collapse" data-target="#filters">Search Filters</button>
+<div id="filters">
+    <div class="col-sm-3 filter"><label for="bikeFilter">Bikes</label><input type="checkbox" id="bikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-3 filter"><label for="mountainBikeFilter">Mountain Bikes</label><input type="checkbox" id="mountainBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-3 filter"><label for="touringBikeFilter">Touring Bikes</label><input type="checkbox" id="touringBikeFilter" class="bikeFilters f" /></div>
+    <div class="col-sm-3 filter"><label for="roadBikeFilter">Road Bikes</label><input type="checkbox" id="roadBikeFilter" class="bikeFilters f" /></div>
+
+    @foreach (var s in ViewBag.Categories)
+    {
         String idStr = s.ToLower() + "Filter";
         idStr = idStr.Replace(' ', '_');
         String label = s;
         String classStr = "gearFilters";
 
-        <div class="col-sm-1 filter"><label for="@idStr">@label</label><input type="checkbox" id="@idStr" class="@classStr f" /></div>
+        <div class="col-sm-3 filter"><label for="@idStr">@label</label><input type="checkbox" id="@idStr" class="@classStr f" /></div>
     }
 
     <!--<div class="col-sm-4 filter"><label for="framesFilter">Frames</label><input type="checkbox" id="framesFilter" class="gearFilters f" /></div>
     <div class="col-sm-4 filter"><label for="capsFilter">Caps</label><input type="checkbox" id="capsFilter" class="gearFilters f" /></div>
     <div class="col-sm-4 filter"><label for="helmetFilter">Helmet</label><input type="checkbox" id="helmetFilter" class="gearFilters f" /></div>-->
 </div>
-<hr />
 <div id="productsDiv">
     @foreach (var item in Model) {
         count++;

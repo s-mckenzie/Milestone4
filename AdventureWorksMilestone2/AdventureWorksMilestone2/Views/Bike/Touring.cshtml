@@ -3,13 +3,14 @@
 @{
     ViewBag.Title = "Touring";
 }
+<div class="jumbotron">
+    <h3>Touring</h3>
 
-<h3>Touring</h3>
-
-@foreach (var item in Model)
-{
-    @Html.ActionLink(item.ProductModel, "Details", new { id = item.ProductModelID })
-    <br /><br />
-    @Html.DisplayFor(modelItem => item.Description)
-    <br /><br /><br />
-}
+    @foreach (var item in Model)
+    {
+        @Html.ActionLink(item.ProductModel, "Details", new { id = item.ProductModelID })
+        <br /><br />
+        @Html.DisplayFor(modelItem => item.Description)
+        <br /><br /><br />
+    }
+</div>
