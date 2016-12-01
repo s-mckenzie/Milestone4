@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AdventureWorksMilestone2.Models;
 using System.Data.Entity.Validation;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace AdventureWorksMilestone2.Controllers
 {
@@ -54,6 +56,17 @@ namespace AdventureWorksMilestone2.Controllers
             }
         }
 
+        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account",
+               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(userID, subject,
+               "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return callbackUrl;
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -73,7 +86,23 @@ namespace AdventureWorksMilestone2.Controllers
             if (!ModelState.IsValid)
             {              
                 return View(model);
-            }         
+            }
+
+            // Require the user to have a confirmed email before they can log on.
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+
+                    // Uncomment to debug locally  
+                    // ViewBag.Link = callbackUrl;
+                    ViewBag.errorMessage = "You must have a confirmed email to log on. "
+                                         + "The confirmation token has been resent to your email account.";
+                    return View("Error");
+                }
+            }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -157,15 +186,40 @@ namespace AdventureWorksMilestone2.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    //  Comment the following line to prevent log in until the user is confirmed.
+                    //  await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+
+                    #region formatter
+                    string text = string.Format("Please click on this link to confirm your account: ");
+                    string html = "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a><br/>";
+
+                    html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + callbackUrl);
+                    #endregion
+
+                    MailMessage msg = new MailMessage();
+                    msg.From = new MailAddress("johnnytesterino@gmail.com");
+                    msg.To.Add(new MailAddress(user.Email));
+                    msg.Subject = "Confirm your account";
+                    msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+                    msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+
+                    using (var smtp = new SmtpClient())
+                    {
+                        await smtp.SendMailAsync(msg);
+                        // Uncomment to debug locally 
+                        // TempData["ViewBagLink"] = callbackUrl;
+
+                        ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                        + "before you can log in.";
+
+                        return View("Info");
+                    }  
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -173,6 +227,7 @@ namespace AdventureWorksMilestone2.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
 
         //
         // GET: /Account/ConfirmEmail
@@ -186,6 +241,7 @@ namespace AdventureWorksMilestone2.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+
 
         //
         // GET: /Account/ForgotPassword
@@ -213,10 +269,35 @@ namespace AdventureWorksMilestone2.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");         
+
+                #region formatter
+                string text = string.Format("Please click on this link to reset your password: ");
+                string html = "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>";
+
+                html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + callbackUrl);
+                #endregion
+
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("johnnytesterino@gmail.com");
+                msg.To.Add(new MailAddress(user.Email));
+                msg.Subject = "Reset Password";
+                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(msg);
+                    // Uncomment to debug locally 
+                    // TempData["ViewBagLink"] = callbackUrl;
+
+                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                    + "before you can log in.";
+
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                }
             }
 
             // If we got this far, something failed, redisplay form

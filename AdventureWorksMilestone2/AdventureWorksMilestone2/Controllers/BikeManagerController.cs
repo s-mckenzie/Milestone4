@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using AdventureWorksMilestone2.Models;
 using System.IO;
+using System.Web.Helpers;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace AdventureWorksMilestone2.Controllers
 {
@@ -42,18 +46,33 @@ namespace AdventureWorksMilestone2.Controllers
 
         // Used to search for unique product names
         [Authorize(Roles = "Manager")]
-        public JsonResult CheckName(string name)
+        public JsonResult CheckName(string name, string page)
         {
-            var names = from x in db.Products where x.Name == name select x;
-            return ValidateItems(names, name);
+            if (page == "Create")
+            {
+                var names = from x in db.Products where x.Name == name select x;
+                return ValidateItems(names, name);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // Used to search for unique product numbers
         [Authorize(Roles = "Manager")]
-        public JsonResult CheckNumber(string productnumber)
+        public JsonResult CheckNumber(string productnumber, string page)
         {
-            var nums = from x in db.Products where x.ProductNumber == productnumber select x;
-            return ValidateItems(nums, productnumber);
+            if (page == "Create")
+            {
+                var nums = from x in db.Products where x.ProductNumber == productnumber select x;
+                return ValidateItems(nums, productnumber);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
         [Authorize(Roles = "Manager")]
@@ -77,6 +96,8 @@ namespace AdventureWorksMilestone2.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+
+
         // GET: BikeManager/Create
         [Authorize(Roles = "Manager")]
         public ActionResult Create()
@@ -87,24 +108,55 @@ namespace AdventureWorksMilestone2.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "Manager")]
+        public byte[] ConvertImage(HttpPostedFileBase file)
+        {
+            byte[] data;
+
+            // Convert our image into a byte array
+            using (Stream inputStream = file.InputStream)
+            {
+                MemoryStream memory = inputStream as MemoryStream;
+                if (memory == null)
+                {
+                    memory = new MemoryStream();
+                    inputStream.CopyTo(memory);
+                }
+                data = memory.ToArray();
+            }
+
+            return data;
+        }
+
         // POST: BikeManager/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, HttpPostedFileBase uploadFile)
         {
             if (ModelState.IsValid)
-            {
-                // Seems to be the only functioning way I could find
-                var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
-
+            {      
                 product.ModifiedDate = System.DateTime.Now;
                 product.rowguid = Guid.NewGuid();
-                product.ThumbNailPhoto = image.ThumbNailPhoto;
-                product.ThumbnailPhotoFileName = "no_image_available_small.gif";
 
+                // Manager uploaded an image
+                if (uploadFile != null && uploadFile.ContentLength > 0)
+                {                             
+                    product.ThumbNailPhoto = ConvertImage(uploadFile);
+                    product.ThumbnailPhotoFileName = uploadFile.FileName;
+                }
+                // Manager didn't upload anything
+                else
+                {
+                    // Seems to be the only functioning way I could find
+                    var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
+                    product.ThumbNailPhoto = image.ThumbNailPhoto;
+                    product.ThumbnailPhotoFileName = "no_image_available_small.gif";
+                }
+                
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -140,23 +192,28 @@ namespace AdventureWorksMilestone2.Controllers
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, int j)
+        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, HttpPostedFileBase uploadFile)
         {
             if (ModelState.IsValid)
             {          
                 product.ModifiedDate = System.DateTime.Now;
                 product.rowguid = Guid.NewGuid();
 
-                //Request["fileUpload"];
-
-                // No new image was chosen
-                if (product.ThumbNailPhoto == null)
+                // Manager uploaded an image
+                if (uploadFile != null && uploadFile.ContentLength > 0)
+                {
+                    product.ThumbNailPhoto = ConvertImage(uploadFile);
+                    product.ThumbnailPhotoFileName = uploadFile.FileName;
+                    db.Entry(product).State = EntityState.Modified;
+                }
+                // Manager didn't upload anything
+                else
                 {
                     // Since the photos always turn null on edit, we need to fetch the product's details 
                     var item = db.Products.SingleOrDefault(i => i.ProductID == product.ProductID);
-                    
+
                     // In case thumbnail photo was already null
-                    if(item.ThumbNailPhoto == null)
+                    if (item.ThumbNailPhoto == null)
                     {
                         // Get the byte array for no image
                         var image = db.Products.FirstOrDefault(i => i.ThumbnailPhotoFileName == "no_image_available_small.gif");
@@ -167,17 +224,14 @@ namespace AdventureWorksMilestone2.Controllers
                     {
                         product.ThumbNailPhoto = item.ThumbNailPhoto;
                         product.ThumbnailPhotoFileName = item.ThumbnailPhotoFileName;
-                    }   
-                                  
+                    }
+
                     // We have to set the new values this way instead or else Visual Studios will get confused with "item" and "product" sharing the same ID
                     // It's weird but this works
-                    db.Entry(item).CurrentValues.SetValues(product);    
+                    db.Entry(item).CurrentValues.SetValues(product);
+
                 }
-                else
-                {
-                    db.Entry(product).State = EntityState.Modified;
-                }
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

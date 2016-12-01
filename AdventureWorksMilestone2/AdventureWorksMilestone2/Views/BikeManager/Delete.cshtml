@@ -104,7 +104,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ThumbNailPhoto)
+            <img width="200px" src="data:image;base64,@System.Convert.ToBase64String(Model.ThumbNailPhoto)" />
         </dd>
 
         <dt>

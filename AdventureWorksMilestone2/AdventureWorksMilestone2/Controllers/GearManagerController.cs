@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdventureWorksMilestone2.Models;
+using System.IO;
 
 namespace AdventureWorksMilestone2.Controllers
 {
@@ -75,6 +76,26 @@ namespace AdventureWorksMilestone2.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Manager")]
+        public byte[] ConvertImage(HttpPostedFileBase file)
+        {
+            byte[] data;
+
+            // Convert our image into a byte array
+            using (Stream inputStream = file.InputStream)
+            {
+                MemoryStream memory = inputStream as MemoryStream;
+                if (memory == null)
+                {
+                    memory = new MemoryStream();
+                    inputStream.CopyTo(memory);
+                }
+                data = memory.ToArray();
+            }
+
+            return data;
+        }
+
         // GET: GearManager/Create
         [Authorize(Roles = "Manager")]
         public ActionResult Create()
@@ -126,7 +147,8 @@ namespace AdventureWorksMilestone2.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProductCategoryID = new SelectList(db.ProductCategories, "ProductCategoryID", "Name", product.ProductCategoryID);
+            var category = (from x in db.ProductCategories where x.ParentProductCategoryID != 1 && x.ParentProductCategoryID != null select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
+            ViewBag.ProductCategory = category;
             return View(product);
         }
 
@@ -136,17 +158,22 @@ namespace AdventureWorksMilestone2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager")]
-        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,Name,ProductNumber,Color,StandardCost,ListPrice,Size,Weight,ProductCategoryID,ProductModelID,SellStartDate,SellEndDate,DiscontinuedDate,ThumbNailPhoto,ThumbnailPhotoFileName,rowguid,ModifiedDate")] Product product, HttpPostedFileBase uploadFile)
         {
             if (ModelState.IsValid)
             {
                 product.ModifiedDate = System.DateTime.Now;
                 product.rowguid = Guid.NewGuid();
 
-                //Request["fileUpload"];
-
-                // No new image was chosen
-                if (product.ThumbNailPhoto == null)
+                // Manager uploaded an image
+                if (uploadFile != null && uploadFile.ContentLength > 0)
+                {
+                    product.ThumbNailPhoto = ConvertImage(uploadFile);
+                    product.ThumbnailPhotoFileName = uploadFile.FileName;
+                    db.Entry(product).State = EntityState.Modified;
+                }
+                // Manager didn't upload anything
+                else
                 {
                     // Since the photos always turn null on edit, we need to fetch the product's details 
                     var item = db.Products.SingleOrDefault(i => i.ProductID == product.ProductID);
@@ -168,16 +195,15 @@ namespace AdventureWorksMilestone2.Controllers
                     // We have to set the new values this way instead or else Visual Studios will get confused with "item" and "product" sharing the same ID
                     // It's weird but this works
                     db.Entry(item).CurrentValues.SetValues(product);
-                }
-                else
-                {
-                    db.Entry(product).State = EntityState.Modified;
+
                 }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProductCategoryID = new SelectList(db.ProductCategories, "ProductCategoryID", "Name", product.ProductCategoryID);
+
+            var category = (from x in db.ProductCategories where x.ParentProductCategoryID != 1 && x.ParentProductCategoryID != null select new SelectListItem { Value = x.ProductCategoryID.ToString(), Text = x.Name }).Distinct();
+            ViewBag.ProductCategory = category;
             return View(product);
         }
 

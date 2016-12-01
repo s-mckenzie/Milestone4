@@ -337,4 +337,33 @@ nav-bar-nav{
     width:100%;
     display:block;
     border:1px black solid;
+=======
+
+.avgReviewStars{
+    position: absolute;
+    width: 125px;
+    bottom: 11%;
+    left: 35%;
+    z-index:20;
+}
+
+.avgReviewScore {
+    position: absolute;
+    bottom: 11%;
+    left: 35%;
+    height: 25px;
+    z-index: 19;
+}
+
+#noResults {
+    text-align:center;
+}
+
+#noResults img {
+    height: 200px;
+    width: auto;
+}
+
+.review_M {
+    word-wrap: break-word;
 }
