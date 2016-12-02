@@ -59,13 +59,13 @@
     <Property Name="Weight" Type="decimal" Precision="8" Scale="2" />
     <Property Name="ProductCategoryID" Type="int" />
     <Property Name="ProductModelID" Type="int" />
-    <Property Name="SellStartDate" Type="datetime" Nullable="false" />
-    <Property Name="SellEndDate" Type="datetime" />
-    <Property Name="DiscontinuedDate" Type="datetime" />
+    <Property Name="SellStartDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="SellEndDate" Type="datetime2" Precision="7" />
+    <Property Name="DiscontinuedDate" Type="datetime2" Precision="7" />
     <Property Name="ThumbNailPhoto" Type="varbinary(max)" />
     <Property Name="ThumbnailPhotoFileName" Type="nvarchar" MaxLength="50" />
     <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime2" Precision="7" Nullable="false" />
   </EntityType>
   <EntityType Name="ProductCategory">
     <Key>
@@ -190,13 +190,11 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductAndDescription'
 warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductAndDescription2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vProductAndDescription2">
     <Key>
-      <PropertyRef Name="Name" />
       <PropertyRef Name="ProductModel" />
       <PropertyRef Name="Culture" />
       <PropertyRef Name="Description" />
     </Key>
     <Property Name="ProductModelID" Type="int" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ProductModel" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Culture" Type="nchar" MaxLength="6" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="400" Nullable="false" />
@@ -237,7 +235,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     <Property Name="rowguid" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Reviews__Product__1DB06A4F">
+  <Association Name="FK__Reviews__Product__56E8E7AB">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
     <ReferentialConstraint>
@@ -426,7 +424,6 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     <EntitySet Name="vProductAndDescription2" EntityType="Self.vProductAndDescription2" store:Type="Views" store:Schema="SalesLT">
       <DefiningQuery>SELECT 
     [vProductAndDescription2].[ProductModelID] AS [ProductModelID], 
-    [vProductAndDescription2].[Name] AS [Name], 
     [vProductAndDescription2].[ProductModel] AS [ProductModel], 
     [vProductAndDescription2].[Culture] AS [Culture], 
     [vProductAndDescription2].[Description] AS [Description], 
@@ -462,7 +459,7 @@ warning 6002: The table/view 'AdventureWorks2012.SalesLT.vProductModelCatalogDes
     [vProductModelCatalogDescription].[ModifiedDate] AS [ModifiedDate]
     FROM [SalesLT].[vProductModelCatalogDescription] AS [vProductModelCatalogDescription]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK__Reviews__Product__1DB06A4F" Association="Self.FK__Reviews__Product__1DB06A4F">
+    <AssociationSet Name="FK__Reviews__Product__56E8E7AB" Association="Self.FK__Reviews__Product__56E8E7AB">
       <End Role="Product" EntitySet="Product" />
       <End Role="Reviews" EntitySet="Reviews" />
     </AssociationSet>

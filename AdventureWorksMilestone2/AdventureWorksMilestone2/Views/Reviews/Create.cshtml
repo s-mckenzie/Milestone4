@@ -5,13 +5,12 @@
 
 }
 
-<h2>Create</h2>
+<h2>Add Review</h2>
 
 <form id="ReviewForm" method="post" action="/Reviews/Create?pid=@ViewBag.ProductId">
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Review</h4>
         <hr />
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -51,21 +50,36 @@
     var CURSEFILTER = new Array('*', '#', '$', '%', '&', '!', '?');
 
     $(document).ready(function () {
-        if (document.getElementById("Rating").value == 1) {
-            star1();
-            $("#1star").trigger("click");
+        if (document.getElementById("Rating").value == 0.5) {
+            star1L();
+            $("#1starL").trigger("click");
+        }else if (document.getElementById("Rating").value == 1) {
+            star1R();
+            $("#1starR").trigger("click");
+        }else if (document.getElementById("Rating").value == 1.5) {
+            star2L();
+            $("#2starL").trigger("click");
         }else if (document.getElementById("Rating").value == 2) {
-            star2();
-            $("#2star").trigger("click");
-        }else if (document.getElementById("Rating").value == 3) {
-            star3();
-            $("#3star").trigger("click");
-        }else if (document.getElementById("Rating").value == 4) {
-            star4();
-            $("#4star").trigger("click");
-        }else if (document.getElementById("Rating").value == 5) {
-            star5();
-            $("#5star").trigger("click");
+            star2R();
+            $("#2starR").trigger("click");
+        }else if (document.getElementById("Rating").value == 2.5) {
+            star3L();
+            $("#3starL").trigger("click");
+        } else if (document.getElementById("Rating").value == 3) {
+            star3R();
+            $("#3starR").trigger("click");
+        } else if (document.getElementById("Rating").value == 3.5) {
+            star4L();
+            $("#4starL").trigger("click");
+        } else if (document.getElementById("Rating").value == 4) {
+            star4R();
+            $("#4starR").trigger("click");
+        } else if (document.getElementById("Rating").value == 4.5) {
+            star5L();
+            $("#5starL").trigger("click");
+        } else if (document.getElementById("Rating").value == 5) {
+            star5R();
+            $("#5starR").trigger("click");
         }
 
     });

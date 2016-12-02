@@ -777,3 +777,7 @@ C:\Users\Alex\Documents\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWork
 C:\Users\Alex\Documents\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\obj\Debug\AdventureWorksMilestone2.csprojResolveAssemblyReference.cache
 C:\Users\Alex\Documents\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\obj\Debug\AdventureWorksMilestone2.dll
 C:\Users\Alex\Documents\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\obj\Debug\AdventureWorksMilestone2.pdb
+C:\Users\1449877\Desktop\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\SendGrid.CSharp.HTTP.Client.dll
+C:\Users\1449877\Desktop\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\SendGrid.dll
+C:\Users\1449877\Desktop\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\System.Net.Http.Formatting.dll
+C:\Users\1449877\Desktop\GitHub\Milestone4\AdventureWorksMilestone2\AdventureWorksMilestone2\bin\System.Net.Http.Formatting.xml

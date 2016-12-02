@@ -84,25 +84,12 @@
         </dt>
 
         <dd>
-            <img src="data:image;base64,@System.Convert.ToBase64String(Model.ThumbNailPhoto)" />
+            <img width="200px" src="data:image;base64,@System.Convert.ToBase64String(Model.ThumbNailPhoto)" />
         </dd>
     </dl>
     <div style="position: fixed; left: 17%; top: 20%;" class="fb-like" data-href="http://localhost:29621/Products/Details?id=@ViewBag.Id" data-layout="box_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
 </div>
 <p>
-    @Html.ActionLink("reviews", "Create","Reviews")
-    @Html.ActionLink("Back to List", "Index")
-
-    <a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br />
-    @foreach(var r in reviews)
-    {
-        @Html.Raw("<div class='review'>")
-        @Html.Raw("<div class='review_U'>")
-        @Html.Raw(r.Name)
-        @Html.Raw("</div>")
-        @Html.Raw("<div class='review_R'>")
-        for (decimal x = 0; x < 5; x = x + ((decimal) 0.5))
-
     <button class="btn"><a href="/Reviews/Create?pid=@ViewBag.Id">Add a Review</a> <br /></button>
     <div class="col-lg-6">
         @foreach(var r in reviews)

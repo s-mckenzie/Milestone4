@@ -115,8 +115,8 @@ body {
 }
 
 .star{
-    height: 24px;
-    width: 12px;
+    height: 24px !important;
+    width: 12px !important;
 }
 
 hr {
@@ -127,14 +127,14 @@ hr {
 .prod {
     height: 24.5em;
     border: solid 2px black;
-    overflow-y: scroll;
+    overflow-y: hidden;
     border-radius: 10px;
 }
 
 details {
     font-size: 14pt;
     color: #01579B;
-    z-index: 10;
+    z-index: 1000000;
     background-color: #B3E5FC;
 }
 
@@ -332,12 +332,12 @@ input[type="checkbox"] {
 nav-bar-nav{
     width:50%;
 }
-.toggle2{
-    float:left;
-    width:100%;
-    display:block;
-    border:1px black solid;
-=======
+.toggle2 {
+    float: left;
+    width: 100%;
+    display: block;
+    border: 1px black solid;
+}
 
 .avgReviewStars{
     position: absolute;
